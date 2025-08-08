@@ -29,6 +29,15 @@ import { SEOJsonLd } from "@/components/seo-jsonld";
 import { useSearchParams } from "next/navigation";
 
 export default function Page() {
+  return (
+    <Suspense fallback={<div className="p-4 text-sm text-muted-foreground">Cargando…</div>}>
+      <DsourcesClient />
+    </Suspense>
+  );
+}
+
+
+function DsourcesClient() {
   const searchParams = useSearchParams();
   const cat = searchParams.get("cat") || "todas";
   const q = searchParams.get("q") || "";
@@ -36,28 +45,13 @@ export default function Page() {
     "todas","cursos","challenges","herramientas","documentacion","diseno","inspiraciones","blogs","apis","librerias","repositorios",
   ];
   const initialCat: CategoryKey = (validCats as string[]).includes(cat) ? (cat as CategoryKey) : "todas";
-  const initialQuery = q
-
-  return (
-    <Suspense fallback={<div className="p-4 text-sm text-muted-foreground">Cargando…</div>}>
-      <DsourcesClient initialCat={initialCat} initialQuery={initialQuery} />
-    </Suspense>
-  )
-}
-
-function DsourcesClient({
-  initialCat,
-  initialQuery,
-}: {
-  initialCat: CategoryKey
-  initialQuery: string
-}) {
+  const initialQuery = q;
   const { activeCategory, setActiveCategory, query, setQuery, countsByCategory, filtered, addTagToQuery } = useFilters({
     resources: RESOURCES,
     categories,
     initialCategory: initialCat,
     initialQuery,
-  })
+  });
 
   return (
     <SidebarProvider>
