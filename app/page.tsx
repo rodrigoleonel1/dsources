@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Suspense } from "react"
+import { Suspense } from "react";
 
 import styles from "./page.module.css";
 import { categories } from "@/components/categories";
@@ -30,23 +30,48 @@ import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   return (
-    <Suspense fallback={<div className="p-4 text-sm text-muted-foreground">Cargando…</div>}>
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-12 h-12 border-4 border-t-blue-600 rounded-full animate-spin"></div>
+        </div>
+      }
+    >
       <DsourcesClient />
     </Suspense>
   );
 }
-
 
 function DsourcesClient() {
   const searchParams = useSearchParams();
   const cat = searchParams.get("cat") || "todas";
   const q = searchParams.get("q") || "";
   const validCats: CategoryKey[] = [
-    "todas","cursos","challenges","herramientas","documentacion","diseno","inspiraciones","blogs","apis","librerias","repositorios",
+    "todas",
+    "cursos",
+    "challenges",
+    "herramientas",
+    "documentacion",
+    "diseno",
+    "inspiraciones",
+    "blogs",
+    "apis",
+    "librerias",
+    "repositorios",
   ];
-  const initialCat: CategoryKey = (validCats as string[]).includes(cat) ? (cat as CategoryKey) : "todas";
+  const initialCat: CategoryKey = (validCats as string[]).includes(cat)
+    ? (cat as CategoryKey)
+    : "todas";
   const initialQuery = q;
-  const { activeCategory, setActiveCategory, query, setQuery, countsByCategory, filtered, addTagToQuery } = useFilters({
+  const {
+    activeCategory,
+    setActiveCategory,
+    query,
+    setQuery,
+    countsByCategory,
+    filtered,
+    addTagToQuery,
+  } = useFilters({
     resources: RESOURCES,
     categories,
     initialCategory: initialCat,
@@ -68,15 +93,21 @@ function DsourcesClient() {
       <SidebarInset>
         <AppHeader query={query} onQueryChange={setQuery} />
 
-        <main className="flex-1 p-4">
-          <h1 className="mb-1 bg-gradient-to-r from-emerald-600 via-fuchsia-600 to-amber-600 bg-clip-text text-2xl font-bold text-transparent">
+        <main className="flex-1 p-4 mt-16">
+          <h1 className="mb-1 text-2xl font-bold">
             Recursos para desarrolladores
           </h1>
           <p className="mb-4 text-sm text-muted-foreground">
-            Explora categorías y filtra por nombre o tags. Comparte resultados con URLs con filtros.
+            Explora categorías y filtra por nombre o tags. Comparte resultados
+            con URLs con filtros.
           </p>
 
-          <div className={cn("mb-4 flex flex-wrap items-center justify-between gap-3", styles.fadeIn)}>
+          <div
+            className={cn(
+              "mb-4 flex flex-wrap items-center justify-between gap-3",
+              styles.fadeIn
+            )}
+          >
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span className="rounded-md bg-muted px-2 py-1">
                 {categories.find((c) => c.key === activeCategory)?.label}
@@ -100,8 +131,8 @@ function DsourcesClient() {
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  setQuery("")
-                  setActiveCategory("todas")
+                  setQuery("");
+                  setActiveCategory("todas");
                 }}
                 className="relative overflow-hidden"
               >
@@ -112,12 +143,15 @@ function DsourcesClient() {
           </div>
 
           {filtered.length === 0 ? (
-            <Card className={cn("border-dashed", styles.fadeInUp)} style={{ animationDelay: "40ms" }}>
+            <Card
+              className={cn("border-dashed", styles.fadeInUp)}
+              style={{ animationDelay: "40ms" }}
+            >
               <CardHeader>
                 <CardTitle>Sin resultados</CardTitle>
                 <CardDescription>
-                  No encontramos recursos que coincidan con tus filtros. Intenta con otras palabras clave o cambia la
-                  categoría.
+                  No encontramos recursos que coincidan con tus filtros. Intenta
+                  con otras palabras clave o cambia la categoría.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -129,5 +163,5 @@ function DsourcesClient() {
         <SEOJsonLd resources={filtered} />
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

@@ -15,12 +15,12 @@ import {
 
 export const categories: CategoryItem[] = [
   { key: "todas", label: "Todas", icon: Layers },
-  { key: "cursos", label: "Páginas de Cursos", icon: GraduationCap },
-  { key: "challenges", label: "Páginas de Challenges", icon: Rocket },
-  { key: "herramientas", label: "Páginas de Herramientas", icon: Wrench },
-  { key: "documentacion", label: "Páginas de Documentación", icon: BookOpen },
-  { key: "diseno", label: "Páginas de Diseño", icon: Palette },
-  { key: "inspiraciones", label: "Páginas de Inspiraciones", icon: Sparkles },
+  { key: "cursos", label: "Cursos", icon: GraduationCap },
+  { key: "challenges", label: "Challenges", icon: Rocket },
+  { key: "herramientas", label: "Herramientas", icon: Wrench },
+  { key: "documentacion", label: "Documentación", icon: BookOpen },
+  { key: "diseno", label: "Diseño", icon: Palette },
+  { key: "inspiraciones", label: "Inspiraciones", icon: Sparkles },
   { key: "blogs", label: "Blogs y guías", icon: FileText },
   { key: "apis", label: "APIs", icon: Globe },
   { key: "librerias", label: "Librerías", icon: Package },

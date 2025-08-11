@@ -26,11 +26,10 @@ export function ResourceCard({
 }) {
   return (
     <div className={cn("group relative", styles.fadeInUp)} style={{ animationDelay: `${Math.min(12 * index, 300)}ms` }}>
-      <div className="pointer-events-none absolute -inset-px rounded-xl opacity-0 blur-sm transition-opacity group-hover:opacity-100 bg-gradient-to-br from-emerald-500/20 via-fuchsia-500/20 to-amber-500/20" />
-      <Card className="relative flex h-full flex-col transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg">
-        <CardHeader className="pb-3">
+      <Card className="relative flex h-full flex-col transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:bg-gradient-to-br from-indigo-500 to-indigo-300 dark:from-indigo-900 dark:to-indigo-500">
+        <CardHeader>
           <CardTitle className="text-base">{resource.name}</CardTitle>
-          <CardDescription className="line-clamp-2">{resource.description}</CardDescription>
+          <CardDescription className="line-clamp-2 group-hover:text-gray-800 dark:group-hover:text-gray-300">{resource.description}</CardDescription>
         </CardHeader>
         <CardContent className="mt-auto">
           <div className="mb-3 flex flex-wrap gap-2">
@@ -38,7 +37,7 @@ export function ResourceCard({
               <button
                 key={t}
                 onClick={() => onTagClick(t)}
-                className="inline-flex items-center rounded-md border px-2 py-0.5 text-xs transition-all hover:bg-accent hover:text-accent-foreground hover:shadow-sm active:scale-95"
+                className="inline-flex items-center rounded-md border px-2 py-0.5 text-xs transition-all hover:bg-accent hover:text-accent-foreground hover:shadow-sm active:scale-95 cursor-pointer group-hover:border-white/20"
                 aria-label={`Filtrar por tag ${t}`}
                 title={`Filtrar por tag ${t}`}
               >
@@ -53,7 +52,7 @@ export function ResourceCard({
             <Button asChild size="sm" className="group/btn">
               <a href={resource.url} target="_blank" rel="noreferrer noopener" aria-label={`Visitar ${resource.name}`}>
                 Visitar
-                <ExternalLink className="ml-2 size-4 transition-transform group-hover/btn:translate-x-0.5" />
+                <ExternalLink/>
               </a>
             </Button>
           </div>
