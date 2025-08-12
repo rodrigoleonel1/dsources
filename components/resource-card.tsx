@@ -26,7 +26,7 @@ export function ResourceCard({
 }) {
   return (
     <div className={cn("group relative", styles.fadeInUp)} style={{ animationDelay: `${Math.min(12 * index, 300)}ms` }}>
-      <Card className="relative flex h-full flex-col transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:bg-gradient-to-br from-indigo-500 to-indigo-300 dark:from-indigo-900 dark:to-indigo-500">
+      <Card className="relative flex h-full flex-col transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:bg-gradient-to-br from-indigo-500 to-indigo-300 dark:from-indigo-800 dark:to-indigo-400">
         <CardHeader>
           <CardTitle className="text-base">{resource.name}</CardTitle>
           <CardDescription className="line-clamp-2 group-hover:text-gray-800 dark:group-hover:text-gray-300">{resource.description}</CardDescription>

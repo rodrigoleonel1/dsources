@@ -6,12 +6,13 @@ export type CategoryKey =
   | "challenges"
   | "herramientas"
   | "documentacion"
-  | "diseno"
+  | "diseño"
   | "inspiraciones"
   | "blogs"
   | "apis"
   | "librerias"
   | "repositorios"
+  | "componentes"
 
 export type Resource = {
   id: string

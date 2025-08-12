@@ -11,6 +11,7 @@ import {
   Package,
   GitBranch,
   Layers,
+  Puzzle
 } from "lucide-react";
 
 export const categories: CategoryItem[] = [
@@ -19,7 +20,8 @@ export const categories: CategoryItem[] = [
   { key: "challenges", label: "Challenges", icon: Rocket },
   { key: "herramientas", label: "Herramientas", icon: Wrench },
   { key: "documentacion", label: "Documentación", icon: BookOpen },
-  { key: "diseno", label: "Diseño", icon: Palette },
+  { key: "diseño", label: "Diseño", icon: Palette },
+  { key: "componentes", label: "Componentes", icon: Puzzle },
   { key: "inspiraciones", label: "Inspiraciones", icon: Sparkles },
   { key: "blogs", label: "Blogs y guías", icon: FileText },
   { key: "apis", label: "APIs", icon: Globe },

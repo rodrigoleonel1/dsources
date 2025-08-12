@@ -52,7 +52,7 @@ function DsourcesClient() {
     "challenges",
     "herramientas",
     "documentacion",
-    "diseno",
+    "diseño",
     "inspiraciones",
     "blogs",
     "apis",

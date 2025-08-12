@@ -50,7 +50,7 @@ export const RESOURCES: Resource[] = [
     name: "Behance",
     description: "Portafolios y proyectos creativos para inspiración.",
     url: "https://www.behance.net/",
-    tags: ["diseno", "inspiracion", "portafolio"],
+    tags: ["diseño", "inspiracion", "portafolio"],
     category: "inspiraciones",
   },
   {
@@ -93,7 +93,7 @@ export const RESOURCES: Resource[] = [
     description:
       "Herramienta colaborativa para diseño de interfaces y prototipos.",
     url: "https://www.figma.com/",
-    tags: ["diseno", "ui", "prototipado", "herramientas"],
+    tags: ["diseño", "ui", "prototipado", "herramientas"],
     category: "herramientas",
   },
   {
@@ -287,7 +287,7 @@ export const RESOURCES: Resource[] = [
     description: "Framework CSS de utilidades para desarrollo rápido de UI.",
     url: "https://tailwindcss.com",
     tags: ["css", "framework", "ui"],
-    category: "diseno",
+    category: "diseño",
   },
   {
     id: "r-35",
@@ -295,7 +295,7 @@ export const RESOURCES: Resource[] = [
     description: "Colección de componentes reutilizables con Tailwind CSS.",
     url: "https://ui.shadcn.com",
     tags: ["componentes", "ui", "diseño"],
-    category: "diseno",
+    category: "componentes",
   },
   {
     id: "r-36",
@@ -303,7 +303,7 @@ export const RESOURCES: Resource[] = [
     description: "Banco de imágenes y fotos gratuitas para cualquier proyecto.",
     url: "https://unsplash.com",
     tags: ["imagenes", "fotos", "gratis"],
-    category: "diseno",
+    category: "diseño",
   },
   {
     id: "r-37",
@@ -311,7 +311,7 @@ export const RESOURCES: Resource[] = [
     description: "Fotos y videos libres de derechos y gratuitos.",
     url: "https://www.pexels.com/",
     tags: ["imagenes", "fotos", "gratis", "videos"],
-    category: "diseno",
+    category: "diseño",
   },
   {
     id: "r-38",
@@ -319,7 +319,7 @@ export const RESOURCES: Resource[] = [
     description: "Iconos y vectores SVG gratuitos para uso comercial.",
     url: "https://www.svgrepo.com/",
     tags: ["svg", "iconos", "vectores"],
-    category: "diseno",
+    category: "diseño",
   },
   {
     id: "r-39",
@@ -381,9 +381,247 @@ export const RESOURCES: Resource[] = [
   {
     id: "r-46",
     name: "Awesome GitHub Profile READMEs",
-    description: "Colección visual y práctica de perfiles de GitHub bien diseñados.",
+    description:
+      "Colección visual y práctica de perfiles de GitHub bien diseñados.",
     url: "https://zzetao.github.io/awesome-github-profile/",
     tags: ["github", "readme", "inspiracion"],
     category: "inspiraciones",
+  },
+  {
+    id: "r-47",
+    name: "Godly",
+    description: "Inspiración de diseño web, solo lo mejor de lo mejor.",
+    url: "https://godly.website/",
+    tags: ["inspiracion", "diseño", "ui", "web"],
+    category: "inspiraciones",
+  },
+  {
+    id: "r-48",
+    name: "Cult UI",
+    description:
+      "Componentes gratuitos y de código abierto. Bloques compatibles con shadcn/ui.",
+    url: "https://www.cult-ui.com/",
+    tags: ["componentes", "ui", "diseño"],
+    category: "componentes",
+  },
+  {
+    id: "r-49",
+    name: "Developer portfolios",
+    description:
+      "Una lista de portafolios de desarrolladores para tu inspiración.",
+    url: "https://github.com/emmabostian/developer-portfolios",
+    tags: ["repositorios", "inspiracion", "diseño"],
+    category: "repositorios",
+  },
+  {
+    id: "r-50",
+    name: "List Swajp",
+    description:
+      "Una lista de proyectos y diseños adecuados para inspirarte en personas exitosas.",
+    url: "https://list.swajp.me/",
+    tags: ["repositorios", "inspiracion", "diseño"],
+    category: "inspiraciones",
+  },
+  {
+    id: "r-51",
+    name: "Visualgo ",
+    description:
+      "Plataforma diseñada para ayudar a comprender estructuras de datos y algoritmos mediante visualizaciones interactivas y animadas.",
+    url: "https://visualgo.net/en",
+    tags: ["algoritmos", "educación", "árboles", "estructuras de datos"],
+    category: "herramientas",
+  },
+  {
+    id: "r-52",
+    name: "Codecademy",
+    description:
+      "Plataforma interactiva para aprender a programar con cursos gratuitos y opciones de suscripción Pro.",
+    url: "https://www.codecademy.com/",
+    tags: ["cursos", "programacion", "javascript", "python", "html", "css"],
+    category: "cursos",
+  },
+  {
+    id: "r-53",
+    name: "Los Apuntes de Majo",
+    description:
+      "Apuntes gratuitos y visuales sobre programación, JavaScript, Python, Swift y más, creados a mano por Majo Ledesma.",
+    url: "https://losapuntesdemajo.vercel.app/",
+    tags: ["apuntes", "programacion", "javascript", "python", "swift", "css"],
+    category: "cursos",
+  },
+  {
+    id: "r-54",
+    name: "Excalidraw",
+    description:
+      "Pizarra colaborativa en línea de código abierto para crear diagramas con estilo dibujado a mano.",
+    url: "https://excalidraw.com/",
+    tags: ["pizarra", "diagramas", "wireframes", "visualización"],
+    category: "herramientas",
+  },
+  {
+    id: "r-55",
+    name: "dbdiagram.io",
+    description:
+      "Herramienta en línea gratuita para crear diagramas de relaciones de bases de datos mediante código.",
+    url: "https://dbdiagram.io",
+    tags: ["diagramas", "bases de datos", "DBML", "SQL"],
+    category: "herramientas",
+  },
+  {
+    id: "r-56",
+    name: "Magic Loops",
+    description:
+      "Plataforma sin código que permite crear aplicaciones profesionales mediante automatización con IA.",
+    url: "https://magicloops.dev/es",
+    tags: [
+      "sin código",
+      "automatización",
+      "IA",
+      "productividad",
+      "generación de contenido",
+      "flujos de trabajo",
+    ],
+    category: "herramientas",
+  },
+  {
+    id: "r-57",
+    name: "Napkin AI",
+    description:
+      "Plataforma de IA que convierte texto en visualizaciones gráficas como diagramas, mapas mentales e infografías.",
+    url: "https://www.napkin.ai/",
+    tags: ["IA", "visualización", "presentaciones", "educación"],
+    category: "herramientas",
+  },
+  {
+    id: "r-58",
+    name: "Project-Based Learning",
+    description:
+      "Repositorio con tutoriales prácticos para aprender a programar construyendo aplicaciones reales desde cero.",
+    url: "https://github.com/practical-tutorials/project-based-learning",
+    tags: [
+      "tutoriales",
+      "aprendizaje práctico",
+      "proyectos reales",
+      "desarrollo de software",
+    ],
+    category: "repositorios",
+  },
+  {
+    id: "r-59",
+    name: "Grow with Google",
+    description:
+      "Plataforma gratuita con cursos y herramientas para mejorar habilidades digitales, impulsar carreras y hacer crecer negocios.",
+    url: "https://grow.google/intl/es/courses-and-tools/",
+    tags: [
+      "cursos",
+      "herramientas",
+      "habilidades digitales",
+      "emprendimiento",
+      "marketing",
+      "certificados",
+    ],
+    category: "cursos",
+  },
+  {
+    id: "r-60",
+    name: "ReactBits.dev",
+    description:
+      "Biblioteca de componentes React con animaciones y efectos visuales para interfaces únicas.",
+    url: "https://www.reactbits.dev/",
+    tags: ["react", "componentes", "animaciones", "ui"],
+    category: "componentes",
+  },
+  {
+    id: "r-61",
+    name: "bg.ibelick",
+    description:
+      "Colección gratuita de fragmentos de código para fondos modernos en Tailwind CSS y CSS puro.",
+    url: "https://bg.ibelick.com/",
+    tags: ["fondos", "backgrounds", "tailwindcss", "css", "diseño"],
+    category: "componentes",
+  },
+  {
+    id: "r-62",
+    name: "NEAT",
+    description:
+      "Herramienta gratuita para crear fondos animados 3D con gradientes dinámicos usando WebGL y Three.js.",
+    url: "https://neat.firecms.co/",
+    tags: ["fondos", "backgrounds", "3d", "animaciones", "herramientas"],
+    category: "herramientas",
+  },
+  {
+    id: "r-63",
+    name: "Shape Divider App",
+    description:
+      "Herramienta gratuita para crear divisores de sección personalizados con SVG y CSS para diseños web.",
+    url: "https://www.shapedivider.app/",
+    tags: ["divisores", "svg", "css", "diseño", "herramientas"],
+    category: "herramientas",
+  },
+  {
+    id: "r-64",
+    name: "Aceternity UI",
+    description:
+      "Biblioteca de componentes UI moderna y gratuita con efectos visuales y animaciones para React, basada en Tailwind CSS y Framer Motion.",
+    url: "https://ui.aceternity.com/",
+    tags: [
+      "ui",
+      "componentes",
+      "react",
+      "tailwindcss",
+      "animaciones",
+      "efectos",
+    ],
+    category: "componentes",
+  },
+  {
+    id: "r-65",
+    name: "Magic UI",
+    description:
+      "Biblioteca de componentes UI gratuita y de código abierto con más de 150 componentes animados construidos con React, TypeScript, Tailwind CSS y Framer Motion.",
+    url: "https://magicui.design/",
+    tags: [
+      "ui",
+      "componentes",
+      "react",
+      "tailwindcss",
+      "animaciones",
+      "efectos",
+    ],
+    category: "componentes",
+  },
+  {
+    id: "r-66",
+    name: "Motion Primitives",
+    description:
+      "Biblioteca de componentes UI animados de código abierto para React, Next.js y Tailwind CSS, usando Framer Motion para crear animaciones fáciles y personalizables.",
+    url: "https://motion-primitives.com/",
+    tags: [
+      "ui",
+      "componentes",
+      "react",
+      "tailwindcss",
+      "animaciones",
+      "motion",
+    ],
+    category: "componentes",
+  },
+  {
+    id: "r-67",
+    name: "SmoothUI",
+    description:
+      "Biblioteca de componentes UI moderna y gratuita para React, construida con Tailwind CSS y Motion, que ofrece animaciones suaves y personalización sencilla.",
+    url: "https://smoothui.dev/",
+    tags: ["ui", "componentes", "react", "tailwindcss", "animaciones"],
+    category: "componentes",
+  },
+  {
+    id: "r-68",
+    name: "21st.dev",
+    description:
+      "Plataforma para crear, compartir y personalizar componentes UI de alta calidad utilizando inteligencia artificial, devolviendo el toque artesanal y el estilo propio a los productos digitales.",
+    url: "https://21st.dev/home",
+    tags: ["ui", "componentes", "react", "tailwindcss"],
+    category: "componentes",
   },
 ];

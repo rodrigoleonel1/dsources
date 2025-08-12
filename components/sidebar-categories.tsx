@@ -11,7 +11,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CategoryItem, CategoryKey } from "@/data/types";
 import { Audiowide } from "next/font/google";
