@@ -1120,7 +1120,7 @@ export const RESOURCES: Resource[] = [
     description:
       "Framework web que permite carga instantánea de aplicaciones de cualquier tamaño.",
     url: "https://qwik.builder.io",
-    tags: ["rendimiento", "resumible", "framework", "carga-instantanea"],
+    tags: ["rendimiento", "framework", "javascript"],
     category: "librerias",
   },
   {
@@ -1129,7 +1129,7 @@ export const RESOURCES: Resource[] = [
     description:
       "Framework web moderno para JavaScript y TypeScript basado en Deno.",
     url: "https://fresh.deno.dev",
-    tags: ["deno", "framework", "islas", "typescript"],
+    tags: ["deno", "framework", "typescript"],
     category: "librerias",
   },
 ];
