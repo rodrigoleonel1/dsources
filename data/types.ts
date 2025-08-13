@@ -13,6 +13,7 @@ export type CategoryKey =
   | "librerias"
   | "repositorios"
   | "componentes"
+  | "didactico"
 
 export type Resource = {
   id: string

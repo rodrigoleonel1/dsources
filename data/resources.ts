@@ -2,7 +2,7 @@ import type { Resource } from "./types";
 
 export const RESOURCES: Resource[] = [
   {
-    id: "r-1",
+    id: "1",
     name: "freeCodeCamp",
     description:
       "Cursos gratuitos de programación con proyectos prácticos y certificaciones.",
@@ -11,7 +11,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-2",
+    id: "2",
     name: "Frontend Mentor",
     description:
       "Retos de frontend con diseños reales para mejorar tus habilidades.",
@@ -20,7 +20,7 @@ export const RESOURCES: Resource[] = [
     category: "challenges",
   },
   {
-    id: "r-3",
+    id: "3",
     name: "Exercism",
     description:
       "Ejercicios de programación con mentoría en múltiples lenguajes.",
@@ -29,7 +29,7 @@ export const RESOURCES: Resource[] = [
     category: "challenges",
   },
   {
-    id: "r-4",
+    id: "4",
     name: "MDN Web Docs",
     description: "Documentación oficial y guías de tecnologías web.",
     url: "https://developer.mozilla.org/",
@@ -37,7 +37,7 @@ export const RESOURCES: Resource[] = [
     category: "documentacion",
   },
   {
-    id: "r-5",
+    id: "5",
     name: "DevDocs",
     description:
       "Documentación rápida de múltiples tecnologías en una sola app.",
@@ -46,7 +46,7 @@ export const RESOURCES: Resource[] = [
     category: "documentacion",
   },
   {
-    id: "r-6",
+    id: "6",
     name: "Behance",
     description: "Portafolios y proyectos creativos para inspiración.",
     url: "https://www.behance.net/",
@@ -54,7 +54,7 @@ export const RESOURCES: Resource[] = [
     category: "inspiraciones",
   },
   {
-    id: "r-7",
+    id: "7",
     name: "Smashing Magazine",
     description:
       "Artículos, guías y recursos para desarrolladores y diseñadores.",
@@ -63,7 +63,7 @@ export const RESOURCES: Resource[] = [
     category: "blogs",
   },
   {
-    id: "r-8",
+    id: "8",
     name: "Awesome Lists",
     description: "Colecciones curadas (awesome) de recursos en GitHub.",
     url: "https://github.com/sindresorhus/awesome",
@@ -71,7 +71,7 @@ export const RESOURCES: Resource[] = [
     category: "repositorios",
   },
   {
-    id: "r-9",
+    id: "9",
     name: "RapidAPI",
     description:
       "Marketplace con miles de APIs para integrar en tus proyectos.",
@@ -80,15 +80,16 @@ export const RESOURCES: Resource[] = [
     category: "apis",
   },
   {
-    id: "r-10",
-    name: "npm",
-    description: "Registro de paquetes y librerías de JavaScript.",
-    url: "https://www.npmjs.com/",
-    tags: ["paquetes", "js", "librerias"],
+    id: "10",
+    name: "Tailwind CSS",
+    description:
+      "Framework de CSS utility-first para crear diseños personalizados rápidamente.",
+    url: "https://tailwindcss.com",
+    tags: ["css", "utilidades", "responsive", "personalizable"],
     category: "librerias",
   },
   {
-    id: "r-11",
+    id: "11",
     name: "Figma",
     description:
       "Herramienta colaborativa para diseño de interfaces y prototipos.",
@@ -97,7 +98,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-12",
+    id: "12",
     name: "Dev.to",
     description:
       "Comunidad de desarrolladores con blogs, tutoriales y discusiones.",
@@ -106,7 +107,7 @@ export const RESOURCES: Resource[] = [
     category: "blogs",
   },
   {
-    id: "r-13",
+    id: "13",
     name: "GitHub Trending",
     description: "Repositorios en tendencia por lenguaje y periodo.",
     url: "https://github.com/trending",
@@ -114,7 +115,7 @@ export const RESOURCES: Resource[] = [
     category: "repositorios",
   },
   {
-    id: "r-14",
+    id: "14",
     name: "Can I Use",
     description: "Compatibilidad de características web en navegadores.",
     url: "https://caniuse.com/",
@@ -122,7 +123,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-15",
+    id: "15",
     name: "Full Stack Open",
     description:
       "Curso que introduce el desarrollo web moderno con JavaScript.",
@@ -131,7 +132,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-16",
+    id: "16",
     name: "The Odin Project",
     description: "Plataforma gratuita para aprender desarrollo web desde cero.",
     url: "https://www.theodinproject.com/",
@@ -139,7 +140,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-17",
+    id: "17",
     name: "Harvard Courses",
     description:
       "Colección de programas y recursos educativos en línea de Harvard.",
@@ -148,7 +149,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-18",
+    id: "18",
     name: "Google UX Design Certificate",
     description:
       "Certificación con las habilidades básicas necesarias en diseño UX.",
@@ -157,7 +158,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-19",
+    id: "19",
     name: "Udacity Product Design",
     description:
       "Aprende validación de productos, prácticas UI/UX y Design Sprint de Google.",
@@ -166,7 +167,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-20",
+    id: "20",
     name: "Aprende JavaScript",
     description:
       "Curso para aprender JavaScript paso a paso. Gratis y práctico desde cero.",
@@ -175,7 +176,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-21",
+    id: "21",
     name: "Uxcel",
     description:
       "Microcursos para aprender habilidades UX con certificado de finalización.",
@@ -184,7 +185,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-22",
+    id: "22",
     name: "Advent JS",
     description: "Retos de programación con temática navideña.",
     url: "https://adventjs.dev/en",
@@ -192,7 +193,7 @@ export const RESOURCES: Resource[] = [
     category: "challenges",
   },
   {
-    id: "r-23",
+    id: "23",
     name: "Codewars",
     description: "Mejora tus habilidades con desafíos de programación.",
     url: "https://www.codewars.com/",
@@ -200,7 +201,7 @@ export const RESOURCES: Resource[] = [
     category: "challenges",
   },
   {
-    id: "r-24",
+    id: "24",
     name: "Frontend Practice",
     description: "Mejora tus habilidades recreando sitios web reales.",
     url: "https://www.frontendpractice.com/",
@@ -208,7 +209,7 @@ export const RESOURCES: Resource[] = [
     category: "challenges",
   },
   {
-    id: "r-25",
+    id: "25",
     name: "Daily UI",
     description: "Serie diaria de retos de diseño UI.",
     url: "https://www.dailyui.co/",
@@ -216,7 +217,7 @@ export const RESOURCES: Resource[] = [
     category: "challenges",
   },
   {
-    id: "r-26",
+    id: "26",
     name: "UX Tools Challenges",
     description: "Retos de diseño UX para mejorar habilidades.",
     url: "https://uxtools.co/challenges/",
@@ -224,7 +225,7 @@ export const RESOURCES: Resource[] = [
     category: "challenges",
   },
   {
-    id: "r-27",
+    id: "27",
     name: "Shots",
     description:
       "Crea mockups y presentaciones para redes sociales o sitios web.",
@@ -233,7 +234,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-28",
+    id: "28",
     name: "Gifcap",
     description: "Crea GIFs animados a partir de grabaciones de pantalla.",
     url: "https://gifcap.dev/",
@@ -241,7 +242,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-29",
+    id: "29",
     name: "ResizePixel",
     description:
       "Editor online para redimensionar y editar imágenes fácilmente.",
@@ -250,7 +251,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-30",
+    id: "30",
     name: "GitHub Profile README Generator",
     description: "Genera un README.md personalizado para tu perfil de GitHub.",
     url: "https://rahuldkjain.github.io/gh-profile-readme-generator/",
@@ -258,7 +259,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-31",
+    id: "31",
     name: "README.so",
     description: "Editor simple para personalizar secciones de README.md.",
     url: "https://readme.so/en",
@@ -266,7 +267,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-32",
+    id: "32",
     name: "Next.js Docs",
     description: "Documentación oficial y tutoriales de Next.js.",
     url: "https://nextjs.org/docs",
@@ -274,7 +275,7 @@ export const RESOURCES: Resource[] = [
     category: "documentacion",
   },
   {
-    id: "r-33",
+    id: "33",
     name: "React Docs",
     description: "Aprende fundamentos y conceptos avanzados de React.",
     url: "https://react.dev",
@@ -282,7 +283,7 @@ export const RESOURCES: Resource[] = [
     category: "documentacion",
   },
   {
-    id: "r-34",
+    id: "34",
     name: "Tailwind CSS",
     description: "Framework CSS de utilidades para desarrollo rápido de UI.",
     url: "https://tailwindcss.com",
@@ -290,7 +291,7 @@ export const RESOURCES: Resource[] = [
     category: "diseño",
   },
   {
-    id: "r-35",
+    id: "35",
     name: "shadcn/ui",
     description: "Colección de componentes reutilizables con Tailwind CSS.",
     url: "https://ui.shadcn.com",
@@ -298,7 +299,7 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-36",
+    id: "36",
     name: "Unsplash",
     description: "Banco de imágenes y fotos gratuitas para cualquier proyecto.",
     url: "https://unsplash.com",
@@ -306,7 +307,7 @@ export const RESOURCES: Resource[] = [
     category: "diseño",
   },
   {
-    id: "r-37",
+    id: "37",
     name: "Pexels",
     description: "Fotos y videos libres de derechos y gratuitos.",
     url: "https://www.pexels.com/",
@@ -314,7 +315,7 @@ export const RESOURCES: Resource[] = [
     category: "diseño",
   },
   {
-    id: "r-38",
+    id: "38",
     name: "SVG Repo",
     description: "Iconos y vectores SVG gratuitos para uso comercial.",
     url: "https://www.svgrepo.com/",
@@ -322,7 +323,7 @@ export const RESOURCES: Resource[] = [
     category: "diseño",
   },
   {
-    id: "r-39",
+    id: "39",
     name: "Dribbble",
     description: "Plataforma de inspiración para diseño y portafolios.",
     url: "https://dribbble.com/",
@@ -330,7 +331,7 @@ export const RESOURCES: Resource[] = [
     category: "inspiraciones",
   },
   {
-    id: "r-40",
+    id: "40",
     name: "Awwwards",
     description: "Galería de sitios web destacados por diseño y creatividad.",
     url: "https://www.awwwards.com/",
@@ -338,7 +339,7 @@ export const RESOURCES: Resource[] = [
     category: "inspiraciones",
   },
   {
-    id: "r-41",
+    id: "41",
     name: "CSS-Tricks",
     description: "Guías, artículos y trucos de CSS y desarrollo frontend.",
     url: "https://css-tricks.com/",
@@ -346,7 +347,7 @@ export const RESOURCES: Resource[] = [
     category: "blogs",
   },
   {
-    id: "r-42",
+    id: "42",
     name: "REST Countries",
     description: "API para obtener información detallada de países.",
     url: "https://restcountries.com/",
@@ -354,7 +355,7 @@ export const RESOURCES: Resource[] = [
     category: "apis",
   },
   {
-    id: "r-43",
+    id: "43",
     name: "OpenWeather",
     description: "API de datos meteorológicos actuales y pronósticos.",
     url: "https://openweathermap.org/api",
@@ -363,7 +364,7 @@ export const RESOURCES: Resource[] = [
   },
 
   {
-    id: "r-44",
+    id: "44",
     name: "Axios",
     description: "Cliente HTTP basado en promesas para el navegador y Node.js.",
     url: "https://axios-http.com/",
@@ -371,7 +372,7 @@ export const RESOURCES: Resource[] = [
     category: "librerias",
   },
   {
-    id: "r-45",
+    id: "45",
     name: "Motion",
     description: "Librería para animaciones en Javascript.",
     url: "https://www.framer.com/motion/",
@@ -379,7 +380,7 @@ export const RESOURCES: Resource[] = [
     category: "librerias",
   },
   {
-    id: "r-46",
+    id: "46",
     name: "Awesome GitHub Profile READMEs",
     description:
       "Colección visual y práctica de perfiles de GitHub bien diseñados.",
@@ -388,7 +389,7 @@ export const RESOURCES: Resource[] = [
     category: "inspiraciones",
   },
   {
-    id: "r-47",
+    id: "47",
     name: "Godly",
     description: "Inspiración de diseño web, solo lo mejor de lo mejor.",
     url: "https://godly.website/",
@@ -396,7 +397,7 @@ export const RESOURCES: Resource[] = [
     category: "inspiraciones",
   },
   {
-    id: "r-48",
+    id: "48",
     name: "Cult UI",
     description:
       "Componentes gratuitos y de código abierto. Bloques compatibles con shadcn/ui.",
@@ -405,16 +406,16 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-49",
+    id: "49",
     name: "Developer portfolios",
     description:
       "Una lista de portafolios de desarrolladores para tu inspiración.",
-    url: "https://github.com/emmabostian/developer-portfolios",
+    url: "https://github.com/emmabostian/developeportfolios",
     tags: ["repositorios", "inspiracion", "diseño"],
     category: "repositorios",
   },
   {
-    id: "r-50",
+    id: "50",
     name: "List Swajp",
     description:
       "Una lista de proyectos y diseños adecuados para inspirarte en personas exitosas.",
@@ -423,16 +424,16 @@ export const RESOURCES: Resource[] = [
     category: "inspiraciones",
   },
   {
-    id: "r-51",
+    id: "51",
     name: "Visualgo ",
     description:
       "Plataforma diseñada para ayudar a comprender estructuras de datos y algoritmos mediante visualizaciones interactivas y animadas.",
     url: "https://visualgo.net/en",
     tags: ["algoritmos", "educación", "árboles", "estructuras de datos"],
-    category: "herramientas",
+    category: "didactico",
   },
   {
-    id: "r-52",
+    id: "52",
     name: "Codecademy",
     description:
       "Plataforma interactiva para aprender a programar con cursos gratuitos y opciones de suscripción Pro.",
@@ -441,16 +442,16 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-53",
+    id: "53",
     name: "Los Apuntes de Majo",
     description:
       "Apuntes gratuitos y visuales sobre programación, JavaScript, Python, Swift y más, creados a mano por Majo Ledesma.",
     url: "https://losapuntesdemajo.vercel.app/",
     tags: ["apuntes", "programacion", "javascript", "python", "swift", "css"],
-    category: "cursos",
+    category: "didactico",
   },
   {
-    id: "r-54",
+    id: "54",
     name: "Excalidraw",
     description:
       "Pizarra colaborativa en línea de código abierto para crear diagramas con estilo dibujado a mano.",
@@ -459,7 +460,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-55",
+    id: "55",
     name: "dbdiagram.io",
     description:
       "Herramienta en línea gratuita para crear diagramas de relaciones de bases de datos mediante código.",
@@ -468,7 +469,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-56",
+    id: "56",
     name: "Magic Loops",
     description:
       "Plataforma sin código que permite crear aplicaciones profesionales mediante automatización con IA.",
@@ -484,7 +485,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-57",
+    id: "57",
     name: "Napkin AI",
     description:
       "Plataforma de IA que convierte texto en visualizaciones gráficas como diagramas, mapas mentales e infografías.",
@@ -493,7 +494,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-58",
+    id: "58",
     name: "Project-Based Learning",
     description:
       "Repositorio con tutoriales prácticos para aprender a programar construyendo aplicaciones reales desde cero.",
@@ -507,7 +508,7 @@ export const RESOURCES: Resource[] = [
     category: "repositorios",
   },
   {
-    id: "r-59",
+    id: "59",
     name: "Grow with Google",
     description:
       "Plataforma gratuita con cursos y herramientas para mejorar habilidades digitales, impulsar carreras y hacer crecer negocios.",
@@ -523,7 +524,7 @@ export const RESOURCES: Resource[] = [
     category: "cursos",
   },
   {
-    id: "r-60",
+    id: "60",
     name: "ReactBits.dev",
     description:
       "Biblioteca de componentes React con animaciones y efectos visuales para interfaces únicas.",
@@ -532,7 +533,7 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-61",
+    id: "61",
     name: "bg.ibelick",
     description:
       "Colección gratuita de fragmentos de código para fondos modernos en Tailwind CSS y CSS puro.",
@@ -541,7 +542,7 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-62",
+    id: "62",
     name: "NEAT",
     description:
       "Herramienta gratuita para crear fondos animados 3D con gradientes dinámicos usando WebGL y Three.js.",
@@ -550,7 +551,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-63",
+    id: "63",
     name: "Shape Divider App",
     description:
       "Herramienta gratuita para crear divisores de sección personalizados con SVG y CSS para diseños web.",
@@ -559,7 +560,7 @@ export const RESOURCES: Resource[] = [
     category: "herramientas",
   },
   {
-    id: "r-64",
+    id: "64",
     name: "Aceternity UI",
     description:
       "Biblioteca de componentes UI moderna y gratuita con efectos visuales y animaciones para React, basada en Tailwind CSS y Framer Motion.",
@@ -575,7 +576,7 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-65",
+    id: "65",
     name: "Magic UI",
     description:
       "Biblioteca de componentes UI gratuita y de código abierto con más de 150 componentes animados construidos con React, TypeScript, Tailwind CSS y Framer Motion.",
@@ -591,7 +592,7 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-66",
+    id: "66",
     name: "Motion Primitives",
     description:
       "Biblioteca de componentes UI animados de código abierto para React, Next.js y Tailwind CSS, usando Framer Motion para crear animaciones fáciles y personalizables.",
@@ -607,7 +608,7 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-67",
+    id: "67",
     name: "SmoothUI",
     description:
       "Biblioteca de componentes UI moderna y gratuita para React, construida con Tailwind CSS y Motion, que ofrece animaciones suaves y personalización sencilla.",
@@ -616,12 +617,519 @@ export const RESOURCES: Resource[] = [
     category: "componentes",
   },
   {
-    id: "r-68",
+    id: "68",
     name: "21st.dev",
     description:
       "Plataforma para crear, compartir y personalizar componentes UI de alta calidad utilizando inteligencia artificial, devolviendo el toque artesanal y el estilo propio a los productos digitales.",
     url: "https://21st.dev/home",
     tags: ["ui", "componentes", "react", "tailwindcss"],
     category: "componentes",
+  },
+  {
+    id: "69",
+    name: "unDraw",
+    description:
+      "Colección de ilustraciones vectoriales gratuitas y de código abierto, personalizables y listas para usar en proyectos web, aplicaciones y más.",
+    url: "https://undraw.co/",
+    tags: ["ilustraciones", "SVG", "PNG", "diseño"],
+    category: "diseño",
+  },
+  {
+    id: "70",
+    name: "Bootswatch",
+    description:
+      "Colección de temas gratuitos y de código abierto para Bootstrap, diseñados para personalizar la apariencia de tus proyectos web sin modificar el código base.",
+    url: "https://bootswatch.com/",
+    tags: ["temas", "bootstrap", "frontend", "diseño", "css", "sass"],
+    category: "componentes",
+  },
+  {
+    id: "71",
+    name: "UI Colors",
+    description:
+      "Generador y editor de paletas de colores para Tailwind CSS, que permite crear, personalizar y exportar escalas de color armoniosas.",
+    url: "https://uicolors.app/",
+    tags: ["colores", "tailwindcss", "diseño"],
+    category: "herramientas",
+  },
+  {
+    id: "72",
+    name: "Tailwind CSS Gradient Generator",
+    description:
+      "Herramienta en línea gratuita para generar gradientes personalizados con Tailwind CSS, permitiendo crear gradientes de texto y fondo visualmente atractivos.",
+    url: "https://www.creative-tim.com/twcomponents/gradient-generator/",
+    tags: ["gradientes", "tailwindcss", "diseño"],
+    category: "herramientas",
+  },
+  {
+    id: "73",
+    name: "Portfolio Ideas",
+    description:
+      "Colección curada de más de 130 ejemplos de portafolios profesionales con enlaces en vivo, repositorios en GitHub y tecnologías utilizadas.",
+    url: "https://portfolio-ideas.vercel.app/portfolio.html",
+    tags: ["portafolios", "inspiración", "desarrolladores", "diseñadores"],
+    category: "inspiraciones",
+  },
+  {
+    id: "74",
+    name: "Refero",
+    description:
+      "Plataforma de inspiración UX/UI con más de 100,000 pantallas organizadas por tipo de página, patrón y elemento de interfaz, ideal para diseñadores que buscan referencias reales y bien estructuradas.",
+    url: "https://refero.design/",
+    tags: ["inspiración", "UX/UI", "diseño", "patrones", "interfaz"],
+    category: "inspiraciones",
+  },
+  {
+    id: "75",
+    name: "Dark Mode Design",
+    description:
+      "Galería curada de sitios web con diseño en modo oscuro, destacando su estética visual y funcionalidad.",
+    url: "https://www.darkmodedesign.com/",
+    tags: ["diseño web", "inspiración", "frontend", "UI/UX", "galería"],
+    category: "inspiraciones",
+  },
+  {
+    id: "76",
+    name: "Stack Sorted",
+    description:
+      "Colección de diseños web destacados organizados por elementos específicos de la interfaz de usuario, ideal para encontrar inspiración en componentes concretos.",
+    url: "https://stacksorted.com/",
+    tags: ["diseño", "UI/UX", "inspiración", "componentes", "frontend"],
+    category: "inspiraciones",
+  },
+  {
+    id: "77",
+    name: "Uiverse.io",
+    description:
+      "Biblioteca comunitaria de UI elements open-source y gratuitos (botones, tarjetas, formularios y más) listos para copiar como HTML/CSS, Tailwind, React o usar en Figma.",
+    url: "https://uiverse.io/",
+    tags: ["ui", "componentes", "css", "tailwindcss", "react"],
+    category: "componentes",
+  },
+  {
+    id: "78",
+    name: "Bestfolios",
+    description:
+      "Galería curada de portafolios, currículos y estudios de caso de diseñadores UI/UX, gráficos y motion designers.",
+    url: "https://www.bestfolios.com/portfolios",
+    tags: ["portafolios", "inspiración", "diseño", "UI/UX", "galería"],
+    category: "inspiraciones",
+  },
+  {
+    id: "79",
+    name: "Killer Portfolio",
+    description:
+      "Galería curada de sitios web de portafolio bellamente diseñados y funcionales, además de recursos para crear portafolios visualmente impactantes.",
+    url: "https://www.killerportfolio.com/",
+    tags: ["portafolios", "inspiración", "diseño web", "showcase", "UI/UX"],
+    category: "inspiraciones",
+  },
+  {
+    id: "80",
+    name: "Mobbin",
+    description:
+      "Biblioteca de inspiración UI/UX con cientos de miles de pantallas reales, flujos completos y patrones de diseño de apps iOS, Android y Web, con integración a Figma.",
+    url: "https://mobbin.com",
+    tags: ["inspiración", "ui", "ux", "patrones", "diseño", "figma"],
+    category: "inspiraciones",
+  },
+  {
+    id: "81",
+    name: "Landingfolio",
+    description:
+      "Galería curada de inspiración para landing pages, con componentes reutilizables (Tailwind, Webflow, Figma), plantillas y tips de diseño orientados a conversión.",
+    url: "https://www.landingfolio.com/",
+    tags: ["inspiración", "landing pages", "plantillas", "tailwindcss"],
+    category: "inspiraciones",
+  },
+  {
+    id: "82",
+    name: "Josh W. Comeau",
+    description:
+      "Blog educativo e interactivo creado por Josh W. Comeau, desarrollador y educador indie, con artículos y cursos visuales sobre CSS, React, SVG y animaciones.",
+    url: "https://www.joshwcomeau.com/",
+    tags: ["blog", "tutoriales", "CSS", "React", "SVG", "educación"],
+    category: "blogs",
+  },
+  {
+    id: "83",
+    name: "PokeAPI",
+    description:
+      "API RESTful gratuita y open-source que ofrece acceso completo a datos de Pokémon (especies, tipos, movimientos, habilidades, evoluciones, etc.).",
+    url: "https://pokeapi.co/",
+    tags: ["API", "REST", "Pokémon", "datos", "open-source"],
+    category: "apis",
+  },
+  {
+    id: "84",
+    name: "Valorant-API",
+    description:
+      "API no oficial que proporciona datos del juego VALORANT como agentes, mapas y assets para uso en proyectos de desarrollo.",
+    url: "https://dash.valorant-api.com/",
+    tags: ["API", "Valorant", "datos del juego", "assets", "gaming"],
+    category: "apis",
+  },
+  {
+    id: "85",
+    name: "React Bootstrap",
+    description:
+      "Biblioteca de componentes UI construida en React que reemplaza el JavaScript de Bootstrap por componentes accesibles, manteniendo compatibilidad con estilos y temas existentes.",
+    url: "https://react-bootstrap.github.io/",
+    tags: ["React", "Bootstrap", "componentes", "UI"],
+    category: "librerias",
+  },
+  {
+    id: "86",
+    name: "roadmap.sh",
+    description:
+      "Plataforma colaborativa con roadmaps interactivos, guías y recursos estructurados (por rol o habilidad) para guiar el aprendizaje y crecimiento de desarrolladores.",
+    url: "https://roadmap.sh/",
+    tags: ["carreras", "roadmap", "aprendizaje", "guias", "interactivo"],
+    category: "didactico",
+  },
+  {
+    id: "87",
+    name: "Refactoring.Guru",
+    description:
+      "Plataforma educativa que ofrece guías prácticas sobre refactorización, patrones de diseño y principios SOLID para mejorar la calidad del código.",
+    url: "https://refactoring.guru/",
+    tags: ["refactorización", "patrones de diseño", "SOLID", "código limpio"],
+    category: "didactico",
+  },
+  {
+    id: "88",
+    name: "Patterns.dev",
+    description:
+      "Guía gratuita sobre patrones de diseño, renderizado y optimización de rendimiento para aplicaciones web modernas, con enfoque en JavaScript y frameworks como React.",
+    url: "https://www.patterns.dev/",
+    tags: ["patrones de diseño", "JavaScript", "React", "rendimiento"],
+    category: "didactico",
+  },
+  {
+    id: "89",
+    name: "awesome-interview-questions",
+    description:
+      "Colección curada de listas de preguntas de entrevistas técnicas organizadas por lenguaje, framework, plataforma y tema, útil para la preparación de entrevistas técnicas.",
+    url: "https://github.com/DopplerHQ/awesome-interview-questions",
+    tags: [
+      "entrevistas técnicas",
+      "recursos",
+      "GitHub",
+      "entrevistas de programación",
+    ],
+    category: "repositorios",
+  },
+  {
+    id: "90",
+    name: "Coding Interview University",
+    description:
+      "Plan de estudio gratuito y de código abierto para prepararse para entrevistas técnicas en empresas de tecnología, cubriendo ciencias de la computación, estructuras de datos, algoritmos y más.",
+    url: "https://github.com/jwasham/coding-interview-university",
+    tags: [
+      "entrevistas técnicas",
+      "ciencias de la computación",
+      "algoritmos",
+      "estructuras de datos",
+    ],
+    category: "repositorios",
+  },
+  {
+    id: "91",
+    name: "50 Projects in 50 Days",
+    description:
+      "Desafío educativo que consiste en construir 50 mini proyectos web utilizando HTML, CSS y JavaScript en 50 días, diseñado para enseñar y reforzar habilidades fundamentales de desarrollo frontend.",
+    url: "https://github.com/bradtraversy/50projects50days",
+    tags: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "proyectos",
+      "frontend",
+      "educación",
+      "repositorio",
+      "desarrollo web",
+    ],
+    category: "repositorios",
+  },
+  {
+    id: "92",
+    name: "Interview challenges",
+    description:
+      "Colección de ejercicios prácticos para prepararse para entrevistas técnicas, organizados en algoritmos, proyectos en vivo y proyectos para llevar a casa.",
+    url: "https://github.com/goncy/interview-challenges",
+    tags: [
+      "entrevistas técnicas",
+      "preparación",
+      "algoritmos",
+      "proyectos",
+      "JavaScript",
+      "React",
+    ],
+    category: "repositorios",
+  },
+  {
+    id: "93",
+    name: "Linkedin skill assessments quizzes",
+    description:
+      "Colección de respuestas y preguntas de las evaluaciones de habilidades de LinkedIn, útil para prepararse para las evaluaciones o reforzar conocimientos en diferentes áreas tecnológicas.",
+    url: "https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes",
+    tags: [
+      "LinkedIn",
+      "evaluaciones de habilidades",
+      "JavaScript",
+      "React",
+      "Git",
+      "HTML",
+      "MongoDB",
+      "Java",
+      "Python",
+      "Machine Learning",
+      "PowerPoint",
+      "Excel",
+    ],
+    category: "repositorios",
+  },
+  {
+    id: "94",
+    name: "JSON Data AI",
+    description:
+      "Genera datos JSON estructurados a partir de prompts personalizados y convierte esos datos en endpoints de API funcionales.",
+    url: "https://www.jsondataai.com/",
+    tags: [
+      "API",
+      "JSON",
+      "inteligencia artificial",
+      "datos estructurados",
+      "generación de datos",
+    ],
+    category: "herramientas",
+  },
+  {
+    id: "95",
+    name: "Color.review",
+    description:
+      "Herramienta web gratuita para explorar y verificar la accesibilidad de combinaciones de colores en diseño digital, garantizando legibilidad para todos.",
+    url: "https://color.review/",
+    tags: ["accesibilidad", "contraste", "diseño web", "colores"],
+    category: "herramientas",
+  },
+  {
+    id: "96",
+    name: "Ideogram AI",
+    description:
+      "Generador de imágenes basado en inteligencia artificial que convierte descripciones textuales en imágenes de alta calidad con integración precisa de texto.",
+    url: "https://ideogram.ai/",
+    tags: [
+      "Generación de imágenes",
+      "Inteligencia artificial",
+      "Diseño gráfico",
+      "ia",
+      "diseño",
+    ],
+    category: "herramientas",
+  },
+  {
+    id: "97",
+    name: "SocialEcho",
+    description:
+      "Plataforma de redes sociales de código abierto con moderación automatizada de contenido y autenticación basada en contexto, construida con el stack MERN.",
+    url: "https://github.com/nz-m/SocialEcho",
+    tags: [
+      "MERN",
+      "Redes sociales",
+      "Moderación de contenido",
+      "Autenticación",
+      "Código abierto",
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express.js",
+    ],
+    category: "repositorios",
+  },
+  {
+    id: "98",
+    name: "Next.js Learn",
+    description:
+      "Curso interactivo gratuito que enseña los fundamentos de Next.js y la construcción de aplicaciones web completas utilizando las últimas funciones del framework.",
+    url: "https://nextjs.org/learn",
+    tags: ["Next.js", "Desarrollo web", "Vercel", "Framework", "Full-stack"],
+    category: "didactico",
+  },
+  {
+    id: "99",
+    name: "Desafío Latam",
+    description:
+      "Academia digital que ofrece formación práctica y accesible en tecnología para personas en América Latina, con carreras, cursos y talleres gratuitos.",
+    url: "https://desafiolatam.com/",
+    tags: [
+      "Educación",
+      "Desarrollo web",
+      "Ciencia de datos",
+      "UX/UI",
+      "Cursos gratuitos",
+    ],
+    category: "cursos",
+  },
+  {
+    id: "100",
+    name: "HTTP Cats",
+    description:
+      "API gratuita que asocia cada código de estado HTTP con una imagen de un gato, combinando humor y aprendizaje técnico.",
+    url: "https://http.cat/",
+    tags: ["API", "Códigos de estado HTTP", "Desarrollo web", "Educación"],
+    category: "didactico",
+  },
+  {
+    id: "101",
+    name: "Ant Design",
+    description: "Biblioteca de componentes de diseño empresarial para React.",
+    url: "https://ant.design",
+    tags: ["react", "componentes", "design system"],
+    category: "componentes",
+  },
+  {
+    id: "102",
+    name: "Material-UI",
+    description:
+      "Componentes de React que implementan Material Design de Google.",
+    url: "https://mui.com",
+    tags: ["react", "componentes", "design system", "google"],
+    category: "componentes",
+  },
+  {
+    id: "103",
+    name: "Chakra UI",
+    description:
+      "Biblioteca de componentes simple, modular y accesible para React.",
+    url: "https://chakra-ui.com",
+    tags: ["react", "componentes", "accesibilidad", "modular"],
+    category: "componentes",
+  },
+  {
+    id: "104",
+    name: "Headless UI",
+    description:
+      "Componentes de UI completamente sin estilo y totalmente accesibles.",
+    url: "https://headlessui.com",
+    tags: ["react", "vue", "headless", "accesibilidad"],
+    category: "componentes",
+  },
+  {
+    id: "105",
+    name: "Mantine",
+    description:
+      "Biblioteca completa de componentes y hooks de React con tema oscuro nativo.",
+    url: "https://mantine.dev",
+    tags: ["react", "componentes", "hooks"],
+    category: "componentes",
+  },
+  {
+    id: "106",
+    name: "Arco Design",
+    description:
+      "Sistema de diseño empresarial completo y solución de componentes de UI.",
+    url: "https://arco.design",
+    tags: ["react", "componentes", "empresarial"],
+    category: "componentes",
+  },
+  {
+    id: "107",
+    name: "Semantic UI React",
+    description:
+      "Integración de React para Semantic UI con componentes declarativos.",
+    url: "https://react.semantic-ui.com",
+    tags: ["react", "semantic-ui", "componentes", "declarativo"],
+    category: "componentes",
+  },
+  {
+    id: "108",
+    name: "Next.js",
+    description:
+      "Framework de React para producción con renderizado del lado del servidor y generación estática.",
+    url: "https://nextjs.org",
+    tags: ["react", "ssr", "framework", "vercel", "fullstack"],
+    category: "librerias",
+  },
+  {
+    id: "109",
+    name: "Vue.js",
+    description:
+      "Framework progresivo de JavaScript para construir interfaces de usuario.",
+    url: "https://vuejs.org",
+    tags: ["javascript", "framework", "reactivo", "progresivo"],
+    category: "librerias",
+  },
+  {
+    id: "110",
+    name: "Nuxt.js",
+    description:
+      "Framework intuitivo de Vue.js para crear aplicaciones universales.",
+    url: "https://nuxt.com",
+    tags: ["vue", "ssr", "framework", "universal"],
+    category: "librerias",
+  },
+  {
+    id: "111",
+    name: "SvelteKit",
+    description:
+      "Framework web que usa Svelte para construir aplicaciones de cualquier tamaño.",
+    url: "https://kit.svelte.dev",
+    tags: ["svelte", "framework", "rendimiento", "compilador"],
+    category: "librerias",
+  },
+  {
+    id: "112",
+    name: "Astro",
+    description:
+      "Framework web moderno para construir sitios web rápidos y centrados en el contenido.",
+    url: "https://astro.build",
+    tags: ["estatico", "rendimiento", "islas", "multi-framework"],
+    category: "librerias",
+  },
+  {
+    id: "113",
+    name: "Remix",
+    description:
+      "Framework web full-stack centrado en estándares web y experiencia de usuario moderna.",
+    url: "https://remix.run",
+    tags: ["react", "fullstack", "estandares-web", "ssr"],
+    category: "librerias",
+  },
+  {
+    id: "114",
+    name: "SolidJS",
+    description:
+      "Framework JavaScript declarativo, eficiente y flexible para construir interfaces de usuario.",
+    url: "https://solidjs.com",
+    tags: ["javascript", "reactivo", "rendimiento", "declarativo"],
+    category: "librerias",
+  },
+  {
+    id: "115",
+    name: "Angular",
+    description:
+      "Plataforma de desarrollo para construir aplicaciones web, móviles y de escritorio.",
+    url: "https://angular.io",
+    tags: ["typescript", "framework", "google", "empresarial"],
+    category: "librerias",
+  },
+  {
+    id: "116",
+    name: "Qwik",
+    description:
+      "Framework web que permite carga instantánea de aplicaciones de cualquier tamaño.",
+    url: "https://qwik.builder.io",
+    tags: ["rendimiento", "resumible", "framework", "carga-instantanea"],
+    category: "librerias",
+  },
+  {
+    id: "117",
+    name: "Fresh",
+    description:
+      "Framework web moderno para JavaScript y TypeScript basado en Deno.",
+    url: "https://fresh.deno.dev",
+    tags: ["deno", "framework", "islas", "typescript"],
+    category: "librerias",
   },
 ];

@@ -11,7 +11,8 @@ import {
   Package,
   GitBranch,
   Layers,
-  Puzzle
+  Puzzle,
+  ClipboardPenLine,
 } from "lucide-react";
 
 export const categories: CategoryItem[] = [
@@ -25,6 +26,7 @@ export const categories: CategoryItem[] = [
   { key: "inspiraciones", label: "Inspiraciones", icon: Sparkles },
   { key: "blogs", label: "Blogs y guías", icon: FileText },
   { key: "apis", label: "APIs", icon: Globe },
-  { key: "librerias", label: "Librerías", icon: Package },
+  { key: "librerias", label: "Frameworks y librerías", icon: Package },
+  { key: "didactico", label: "Didáctico", icon: ClipboardPenLine },
   { key: "repositorios", label: "Repositorios", icon: GitBranch },
 ];

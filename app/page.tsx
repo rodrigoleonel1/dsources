@@ -58,6 +58,8 @@ function DsourcesClient() {
     "apis",
     "librerias",
     "repositorios",
+    "componentes",
+    "didactico",
   ];
   const initialCat: CategoryKey = (validCats as string[]).includes(cat)
     ? (cat as CategoryKey)
