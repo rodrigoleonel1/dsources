@@ -1,30 +1,29 @@
-"use client";
-
 import Link from "next/link";
-import { Search, Layers } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Audiowide } from "next/font/google";
 import ThemeToggle from "@/components/theme-toggle";
+import { SearchBar } from "@/components/search-bar";
+import { UserMenu } from "@/components/user-menu";
+import { CommandPaletteTrigger } from "@/components/command-palette-trigger";
+import { NotificationsBell } from "@/components/notifications-bell";
+import type { PublicUser } from "@/data/types";
 
 const audiowide = Audiowide({ subsets: ["latin"], weight: ["400"] });
 
 export function AppHeader({
-  query,
-  onQueryChange,
+  query = "",
+  user,
 }: {
-  query: string;
-  onQueryChange: (value: string) => void;
+  query?: string;
+  user: PublicUser | null;
 }) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b bg-background px-4">
-      <SidebarTrigger className="-ml-1" />
-      <Separator orientation="vertical" className="mr-2 h-6" />
+    <header className="sticky top-0 z-40 flex h-16 w-full shrink-0 items-center gap-1.5 border-b bg-background px-2.5 sm:gap-2 sm:px-4">
+      <SidebarTrigger className="-ml-1 shrink-0" />
+      <Separator orientation="vertical" className="mr-1 h-6 shrink-0 sm:mr-2" />
 
-      <Link
-        href="/"
-      >
+      <Link href="/" className="hidden shrink-0 md:block">
         <div className="flex items-center gap-2 rounded-md px-2 py-1.5">
           <div className="flex size-8 items-center justify-center rounded-md text-white shadow-sm bg-black">
             <span
@@ -39,18 +38,12 @@ export function AppHeader({
         </div>
       </Link>
 
-      <div className="ml-auto flex items-center gap-2">
-        <div className="relative rounded-md p-[1px]  transition-colors">
-          <Search className="pointer-events-none absolute left-3 top-1/2 z-10 size-4 -translate-y-1/2 opacity-60" />
-          <Input
-            value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
-            placeholder="Buscar por nombre o tags..."
-            className="w-[52vw] max-w-[560px] rounded-[6px] pl-9 sm:w-[42vw] bg-background"
-            aria-label="Buscar recursos por nombre o tags"
-          />
-        </div>
+      <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-1 sm:gap-2">
+        <SearchBar initialQuery={query} />
+        <CommandPaletteTrigger />
         <ThemeToggle />
+        {user && <NotificationsBell />}
+        <UserMenu user={user} />
       </div>
     </header>
   );

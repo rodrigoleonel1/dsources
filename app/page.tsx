@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,101 +6,128 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Sidebar,
-  SidebarInset,
-  SidebarProvider,
-  SidebarRail,
-} from "@/components/ui/sidebar";
+import { Sidebar, SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Suspense } from "react";
+import Link from "next/link";
 
 import styles from "./page.module.css";
 import { categories } from "@/components/categories";
-import { RESOURCES } from "@/data/resources";
 import { AppHeader } from "@/components/app-header";
 import { ResourceGrid } from "@/components/resource-grid";
+import { ResourcePagination } from "@/components/pagination";
 import { SidebarCategories } from "@/components/sidebar-categories";
-import { useFilters } from "@/hooks/use-filters";
 import { CategoryKey } from "@/data/types";
+import { ALL_CATEGORY_KEYS } from "@/data/category-keys";
 import { SEOJsonLd } from "@/components/seo-jsonld";
-import { useSearchParams } from "next/navigation";
+import { getSession, sessionToPublicUser } from "@/lib/auth";
+import { listResources } from "@/lib/db/resources";
+import { getCachedCategoryCounts } from "@/lib/cache";
+import { getFavoriteResourceIds } from "@/lib/db/favorites";
+import { SortToggle } from "@/components/sort-toggle";
+import { SITE_NAME } from "@/lib/site";
 
-export default function Page() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex justify-center items-center h-screen">
-          <div className="w-12 h-12 border-4 border-t-blue-600 rounded-full animate-spin"></div>
-        </div>
-      }
-    >
-      <DsourcesClient />
-    </Suspense>
-  );
-}
+export const dynamic = "force-dynamic";
 
-function DsourcesClient() {
-  const searchParams = useSearchParams();
-  const cat = searchParams.get("cat") || "todas";
-  const q = searchParams.get("q") || "";
-  const validCats: CategoryKey[] = [
-    "todas",
-    "cursos",
-    "challenges",
-    "herramientas",
-    "documentacion",
-    "diseño",
-    "inspiraciones",
-    "blogs",
-    "apis",
-    "librerias",
-    "repositorios",
-    "componentes",
-    "didactico",
-  ];
-  const initialCat: CategoryKey = (validCats as string[]).includes(cat)
+type SearchParams = { cat?: string; q?: string; page?: string; sort?: string };
+
+function resolveCategory(cat?: string): CategoryKey {
+  return (ALL_CATEGORY_KEYS as string[]).includes(cat ?? "")
     ? (cat as CategoryKey)
     : "todas";
-  const initialQuery = q;
-  const {
-    activeCategory,
-    setActiveCategory,
-    query,
-    setQuery,
-    countsByCategory,
-    filtered,
-    addTagToQuery,
-  } = useFilters({
-    resources: RESOURCES,
-    categories,
-    initialCategory: initialCat,
-    initialQuery,
-  });
+}
+
+function resolveSort(sort?: string): "recent" | "popular" {
+  return sort === "popular" ? "popular" : "recent";
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}): Promise<Metadata> {
+  const sp = await searchParams;
+  const cat = resolveCategory(sp.cat);
+  const q = (sp.q || "").trim();
+  const catLabel = categories.find((c) => c.key === cat)?.label ?? "Todas";
+
+  const titleParts = [];
+  if (cat !== "todas") titleParts.push(catLabel);
+  if (q) titleParts.push(`"${q}"`);
+  const title = titleParts.length
+    ? `${titleParts.join(" · ")} — Recursos para desarrolladores`
+    : "Recursos para desarrolladores";
+
+  const description =
+    cat !== "todas"
+      ? `Explorá recursos de ${catLabel.toLowerCase()} para desarrolladores en ${SITE_NAME}: cursos, herramientas, documentación y más, elegidos y aprobados por la comunidad.`
+      : `Descubrí y filtrá cientos de recursos para desarrolladores en ${SITE_NAME}: cursos, challenges, herramientas, documentación, diseño, APIs, librerías y repositorios.`;
+
+  const params = new URLSearchParams();
+  if (cat !== "todas") params.set("cat", cat);
+  if (q) params.set("q", q);
+  const canonical = params.toString() ? `/?${params.toString()}` : "/";
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical },
+    twitter: { title, description },
+  };
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const sp = await searchParams;
+  const activeCategory = resolveCategory(sp.cat);
+  const query = sp.q || "";
+  const page = Math.max(1, Number(sp.page) || 1);
+  const sort = resolveSort(sp.sort);
+
+  const [session, counts, result] = await Promise.all([
+    getSession(),
+    getCachedCategoryCounts(),
+    listResources({ category: activeCategory, query, page, status: "approved", sort }),
+  ]);
+
+  const publicUser = sessionToPublicUser(session);
+
+  const favoriteIds = session
+    ? new Set(await getFavoriteResourceIds(session.userId))
+    : new Set<string>();
+
+  const { resources, total, totalPages } = result;
+  const hasFilters = Boolean(query) || activeCategory !== "todas";
 
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar collapsible="offcanvas">
         <SidebarCategories
           categories={categories}
-          countsByCategory={countsByCategory}
+          countsByCategory={counts}
           activeCategory={activeCategory}
-          onChangeCategory={setActiveCategory}
+          query={query}
+          user={publicUser}
         />
-        <SidebarRail />
       </Sidebar>
 
       <SidebarInset>
-        <AppHeader query={query} onQueryChange={setQuery} />
+        <AppHeader query={query} user={publicUser} />
 
-        <main className="flex-1 p-4 mt-16">
+        <main id="main-content" className="flex-1 p-4">
           <h1 className="mb-1 text-2xl font-bold">
             Recursos para desarrolladores
           </h1>
           <p className="mb-4 text-sm text-muted-foreground">
-            Explora categorías y filtra por nombre o tags. Comparte resultados
-            con URLs con filtros.
+            Explorá categorías y filtrá por nombre o tags. Los resultados se
+            comparten con URLs con filtros incluidos.{" "}
+            <Link href="/enviar" className="underline underline-offset-2 hover:text-foreground">
+              ¿Tenés un recurso para sumar?
+            </Link>
           </p>
 
           <div
@@ -116,7 +142,7 @@ function DsourcesClient() {
               </span>
               <span>•</span>
               <span>
-                {filtered.length} recurso{filtered.length === 1 ? "" : "s"}
+                {total} recurso{total === 1 ? "" : "s"}
               </span>
               {query && (
                 <>
@@ -128,41 +154,52 @@ function DsourcesClient() {
                 </>
               )}
             </div>
-            {(query || activeCategory !== "todas") && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setQuery("");
-                  setActiveCategory("todas");
-                }}
-                className="relative overflow-hidden"
-              >
-                <span className="absolute inset-0 -z-10 opacity-0 bg-gradient-to-r from-emerald-500/10 via-fuchsia-500/10 to-amber-500/10 transition-opacity hover:opacity-100" />
-                Limpiar filtros
+            {hasFilters && (
+              <Button asChild variant="outline" size="sm" className="relative overflow-hidden">
+                <Link href="/">
+                  <span className="absolute inset-0 -z-10 opacity-0 bg-gradient-to-r from-emerald-500/10 via-fuchsia-500/10 to-amber-500/10 transition-opacity hover:opacity-100" />
+                  Limpiar filtros
+                </Link>
               </Button>
             )}
           </div>
 
-          {filtered.length === 0 ? (
-            <Card
-              className={cn("border-dashed", styles.fadeInUp)}
-              style={{ animationDelay: "40ms" }}
-            >
+          <SortToggle category={activeCategory} query={query} sort={sort} />
+
+          {resources.length === 0 ? (
+            <Card className={cn("border-dashed", styles.fadeInUp)} style={{ animationDelay: "40ms" }}>
               <CardHeader>
                 <CardTitle>Sin resultados</CardTitle>
                 <CardDescription>
-                  No encontramos recursos que coincidan con tus filtros. Intenta
-                  con otras palabras clave o cambia la categoría.
+                  No encontramos recursos que coincidan con tus filtros. Intentá
+                  con otras palabras clave, cambiá de categoría, o{" "}
+                  <Link href="/enviar" className="underline underline-offset-2 hover:text-foreground">
+                    enviá vos el recurso que falta
+                  </Link>
+                  .
                 </CardDescription>
               </CardHeader>
             </Card>
           ) : (
-            <ResourceGrid resources={filtered} onTagClick={addTagToQuery} />
+            <>
+              <ResourceGrid
+                resources={resources}
+                activeCategory={activeCategory}
+                favoriteIds={favoriteIds}
+                isAuthenticated={Boolean(session)}
+              />
+              <ResourcePagination
+                page={page}
+                totalPages={totalPages}
+                category={activeCategory}
+                query={query}
+                sort={sort}
+              />
+            </>
           )}
         </main>
 
-        <SEOJsonLd resources={filtered} />
+        <SEOJsonLd resources={resources} />
       </SidebarInset>
     </SidebarProvider>
   );

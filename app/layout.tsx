@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Toaster } from "sonner";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
+import { CommandPalette } from "@/components/command-palette";
+import { ServiceWorkerRegister } from "@/components/sw-register";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,9 +18,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dsources — Recursos para desarrolladores",
-  description:
-    "Encuentra recursos para desarrolladores: cursos, challenges, herramientas, documentación, diseño, inspiración, blogs, APIs, librerías y repositorios.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Recursos para desarrolladores`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
   keywords: [
     "recursos para desarrolladores",
     "cursos de programación",
@@ -27,9 +33,31 @@ export const metadata: Metadata = {
     "diseño UI",
     "APIs",
     "librerías",
+    "componentes",
     "repositorios",
     "blogs de programación",
   ],
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": `${SITE_URL}/feed.xml` },
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_AR",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Recursos para desarrolladores`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Recursos para desarrolladores`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -38,10 +66,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+        >
+          Saltar al contenido principal
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -49,6 +83,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster richColors position="bottom-right" closeButton />
+          <CommandPalette />
+          <ServiceWorkerRegister />
         </ThemeProvider>
       </body>
     </html>

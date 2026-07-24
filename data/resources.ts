@@ -1,6 +1,6 @@
-import type { Resource } from "./types";
+import type { SeedResource } from "./types";
 
-export const RESOURCES: Resource[] = [
+export const RESOURCES: SeedResource[] = [
   {
     id: "1",
     name: "freeCodeCamp",
