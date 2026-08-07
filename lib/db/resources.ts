@@ -306,7 +306,7 @@ export async function voteResource(id: string, delta: 1 | -1): Promise<number | 
   const col = await resourcesCollection();
   const res = await col.findOneAndUpdate(
     { _id: new ObjectId(id), status: "approved" },
-    { $inc: { votes: delta }, $setOnInsert: { votes: 0 } },
+    [{ $set: { votes: { $add: [{ $ifNull: ["$votes", 0] }, delta] } } }],
     { returnDocument: "after" }
   );
   return res ? Math.max(0, res.votes ?? 0) : null;
