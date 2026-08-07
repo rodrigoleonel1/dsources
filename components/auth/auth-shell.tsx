@@ -19,7 +19,7 @@ export function AuthShell({
         <Link href="/" className="flex items-center gap-2 rounded-md px-2 py-1.5">
           <div className="flex size-8 items-center justify-center rounded-md text-white shadow-sm bg-black">
             <span className={`flex items-center justify-center gap-2 text-2xl ${audiowide.className} ml-1`}>
-              d<span className="text-indigo-500 text-5xl -mt-7 -ml-3">.</span>
+              d<span className="text-brand text-5xl -mt-7 -ml-3">.</span>
             </span>
           </div>
           <div className={`text-2xl ${audiowide.className}`}>Dsources</div>

@@ -4,8 +4,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "sonner";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
-import { CommandPalette } from "@/components/command-palette";
 import { ServiceWorkerRegister } from "@/components/sw-register";
+import { FavoritesProvider } from "@/providers/favorites-provider";
+import { VotesProvider } from "@/providers/votes-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,10 @@ export const metadata: Metadata = {
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  icons: {
+    apple: "/apple-touch-icon.png",
+  },
   keywords: [
     "recursos para desarrolladores",
     "cursos de programación",
@@ -39,7 +44,6 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/",
-    types: { "application/rss+xml": `${SITE_URL}/feed.xml` },
   },
   openGraph: {
     type: "website",
@@ -57,7 +61,23 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/icon.svg`,
+  description: SITE_DESCRIPTION,
+  sameAs: [],
 };
 
 export default function RootLayout({
@@ -70,6 +90,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
@@ -82,10 +106,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster richColors position="bottom-right" closeButton />
-          <CommandPalette />
-          <ServiceWorkerRegister />
+          <FavoritesProvider>
+            <VotesProvider>
+              {children}
+              <Toaster richColors position="bottom-right" closeButton />
+              <ServiceWorkerRegister />
+            </VotesProvider>
+          </FavoritesProvider>
         </ThemeProvider>
       </body>
     </html>

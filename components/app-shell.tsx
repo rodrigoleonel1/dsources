@@ -1,21 +1,26 @@
 import { Sidebar, SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { categories } from "@/components/categories";
 import { AppHeader } from "@/components/app-header";
 import { SidebarCategories } from "@/components/sidebar-categories";
-import { getSession, sessionToPublicUser } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
+import { toPublicUser } from "@/lib/db/users";
+import { getCategories } from "@/lib/db/categories";
 import { getCachedCategoryCounts } from "@/lib/cache";
 
 export async function AppShell({ children }: { children: React.ReactNode }) {
-  const [session, counts] = await Promise.all([getSession(), getCachedCategoryCounts()]);
-  const user = sessionToPublicUser(session);
+  const [session, categories, counts] = await Promise.all([
+    getSession(),
+    getCategories(),
+    getCachedCategoryCounts(),
+  ]);
+  const user = toPublicUser(session);
 
   return (
     <SidebarProvider>
       <Sidebar collapsible="offcanvas">
         <SidebarCategories
           categories={categories}
-          countsByCategory={counts}
           activeCategory="todas"
+          counts={counts}
           user={user}
         />
       </Sidebar>

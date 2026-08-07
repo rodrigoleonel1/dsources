@@ -1,12 +1,12 @@
 import Link from "next/link";
+import { Bookmark } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Audiowide } from "next/font/google";
 import ThemeToggle from "@/components/theme-toggle";
 import { SearchBar } from "@/components/search-bar";
 import { UserMenu } from "@/components/user-menu";
-import { CommandPaletteTrigger } from "@/components/command-palette-trigger";
-import { NotificationsBell } from "@/components/notifications-bell";
 import type { PublicUser } from "@/data/types";
 
 const audiowide = Audiowide({ subsets: ["latin"], weight: ["400"] });
@@ -23,13 +23,13 @@ export function AppHeader({
       <SidebarTrigger className="-ml-1 shrink-0" />
       <Separator orientation="vertical" className="mr-1 h-6 shrink-0 sm:mr-2" />
 
-      <Link href="/" className="hidden shrink-0 md:block">
+      <Link href="/" className="shrink-0">
         <div className="flex items-center gap-2 rounded-md px-2 py-1.5">
           <div className="flex size-8 items-center justify-center rounded-md text-white shadow-sm bg-black">
             <span
               className={`flex items-center justify-center gap-2 text-2xl ${audiowide.className} ml-1`}
             >
-              d<span className="text-indigo-500 text-5xl -mt-7 -ml-3">.</span>
+              d<span className="text-brand text-5xl -mt-7 -ml-3">.</span>
             </span>
           </div>
           <div className="leading-tight hidden sm:flex">
@@ -40,9 +40,12 @@ export function AppHeader({
 
       <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-1 sm:gap-2">
         <SearchBar initialQuery={query} />
-        <CommandPaletteTrigger />
+        <Button variant="outline" size="icon" asChild title="Favoritos">
+          <Link href="/favoritos" aria-label="Ver mis favoritos">
+            <Bookmark />
+          </Link>
+        </Button>
         <ThemeToggle />
-        {user && <NotificationsBell />}
         <UserMenu user={user} />
       </div>
     </header>

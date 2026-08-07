@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,38 +8,56 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Sidebar, SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Tag } from "lucide-react";
+import { ArrowDownWideNarrow, Sparkles, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 import styles from "./page.module.css";
-import { categories } from "@/components/categories";
 import { AppHeader } from "@/components/app-header";
-import { ResourceGrid } from "@/components/resource-grid";
-import { ResourcePagination } from "@/components/pagination";
 import { SidebarCategories } from "@/components/sidebar-categories";
-import { CategoryKey } from "@/data/types";
-import { ALL_CATEGORY_KEYS } from "@/data/category-keys";
+import { CategoryItem, CategoryKey } from "@/data/types";
 import { SEOJsonLd } from "@/components/seo-jsonld";
-import { getSession, sessionToPublicUser } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
+import { toPublicUser } from "@/lib/db/users";
 import { listResources } from "@/lib/db/resources";
+import { getCategories } from "@/lib/db/categories";
 import { getCachedCategoryCounts } from "@/lib/cache";
-import { getFavoriteResourceIds } from "@/lib/db/favorites";
-import { SortToggle } from "@/components/sort-toggle";
 import { SITE_NAME } from "@/lib/site";
+import {
+  InfiniteResourceList,
+  HomeResultsSkeleton,
+} from "@/components/infinite-resource-list";
 
 export const dynamic = "force-dynamic";
 
-type SearchParams = { cat?: string; q?: string; page?: string; sort?: string };
+type SearchParams = {
+  cat?: string;
+  q?: string;
+  sort?: string;
+  featured?: string;
+};
 
-function resolveCategory(cat?: string): CategoryKey {
-  return (ALL_CATEGORY_KEYS as string[]).includes(cat ?? "")
-    ? (cat as CategoryKey)
-    : "todas";
+function resolveCategory(cat: string | undefined, cats: CategoryItem[]): CategoryKey {
+  return cats.some((c) => c.key === cat) ? (cat as CategoryKey) : "todas";
 }
 
-function resolveSort(sort?: string): "recent" | "popular" {
-  return sort === "popular" ? "popular" : "recent";
+function resolveSort(sort: string | undefined): "recientes" | "populares" {
+  return sort === "populares" ? "populares" : "recientes";
+}
+
+function buildHref(params: {
+  cat?: string;
+  q?: string;
+  sort?: string;
+  featured?: string;
+}) {
+  const sp = new URLSearchParams();
+  if (params.cat && params.cat !== "todas") sp.set("cat", params.cat);
+  if (params.q?.trim()) sp.set("q", params.q.trim());
+  if (params.sort === "populares") sp.set("sort", "populares");
+  if (params.featured === "1") sp.set("featured", "1");
+  const qs = sp.toString();
+  return qs ? `/?${qs}` : "/";
 }
 
 export async function generateMetadata({
@@ -47,9 +66,10 @@ export async function generateMetadata({
   searchParams: Promise<SearchParams>;
 }): Promise<Metadata> {
   const sp = await searchParams;
-  const cat = resolveCategory(sp.cat);
+  const cats = await getCategories();
+  const cat = resolveCategory(sp.cat, cats);
   const q = (sp.q || "").trim();
-  const catLabel = categories.find((c) => c.key === cat)?.label ?? "Todas";
+  const catLabel = cats.find((c) => c.key === cat)?.label ?? "Todas";
 
   const titleParts = [];
   if (cat !== "todas") titleParts.push(catLabel);
@@ -63,10 +83,7 @@ export async function generateMetadata({
       ? `Explorá recursos de ${catLabel.toLowerCase()} para desarrolladores en ${SITE_NAME}: cursos, herramientas, documentación y más, elegidos y aprobados por la comunidad.`
       : `Descubrí y filtrá cientos de recursos para desarrolladores en ${SITE_NAME}: cursos, challenges, herramientas, documentación, diseño, APIs, librerías y repositorios.`;
 
-  const params = new URLSearchParams();
-  if (cat !== "todas") params.set("cat", cat);
-  if (q) params.set("q", q);
-  const canonical = params.toString() ? `/?${params.toString()}` : "/";
+  const canonical = buildHref({ cat, q });
 
   return {
     title,
@@ -83,34 +100,38 @@ export default async function Page({
   searchParams: Promise<SearchParams>;
 }) {
   const sp = await searchParams;
-  const activeCategory = resolveCategory(sp.cat);
+  const categories = await getCategories();
+  const activeCategory = resolveCategory(sp.cat, categories);
   const query = sp.q || "";
-  const page = Math.max(1, Number(sp.page) || 1);
   const sort = resolveSort(sp.sort);
+  const featured = sp.featured === "1";
 
   const [session, counts, result] = await Promise.all([
     getSession(),
     getCachedCategoryCounts(),
-    listResources({ category: activeCategory, query, page, status: "approved", sort }),
+    listResources({
+      category: activeCategory,
+      query,
+      page: 1,
+      status: "approved",
+      sort,
+      featured: featured || undefined,
+    }),
   ]);
 
-  const publicUser = sessionToPublicUser(session);
-
-  const favoriteIds = session
-    ? new Set(await getFavoriteResourceIds(session.userId))
-    : new Set<string>();
+  const publicUser = toPublicUser(session);
 
   const { resources, total, totalPages } = result;
-  const hasFilters = Boolean(query) || activeCategory !== "todas";
+  const hasFilters = Boolean(query) || activeCategory !== "todas" || featured;
 
   return (
     <SidebarProvider>
       <Sidebar collapsible="offcanvas">
         <SidebarCategories
           categories={categories}
-          countsByCategory={counts}
           activeCategory={activeCategory}
           query={query}
+          counts={counts}
           user={publicUser}
         />
       </Sidebar>
@@ -144,6 +165,15 @@ export default async function Page({
               <span>
                 {total} recurso{total === 1 ? "" : "s"}
               </span>
+              {featured && (
+                <>
+                  <span>•</span>
+                  <span className="flex items-center gap-1 text-brand">
+                    <Sparkles className="size-3" />
+                    Destacados
+                  </span>
+                </>
+              )}
               {query && (
                 <>
                   <span>•</span>
@@ -154,17 +184,72 @@ export default async function Page({
                 </>
               )}
             </div>
-            {hasFilters && (
-              <Button asChild variant="outline" size="sm" className="relative overflow-hidden">
-                <Link href="/">
-                  <span className="absolute inset-0 -z-10 opacity-0 bg-gradient-to-r from-emerald-500/10 via-fuchsia-500/10 to-amber-500/10 transition-opacity hover:opacity-100" />
-                  Limpiar filtros
+            <div className="flex flex-wrap items-center gap-2">
+              <div
+                className="inline-flex items-center gap-1 rounded-md bg-muted p-1"
+                role="group"
+                aria-label="Ordenar resultados"
+              >
+                <Button
+                  asChild
+                  variant={sort === "recientes" ? "secondary" : "ghost"}
+                  size="sm"
+                  className="h-7 px-2.5 text-xs"
+                >
+                  <Link href={buildHref({ cat: activeCategory, q: query, featured: featured ? "1" : undefined })}>
+                    Recientes
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant={sort === "populares" ? "secondary" : "ghost"}
+                  size="sm"
+                  className="h-7 px-2.5 text-xs"
+                >
+                  <Link
+                    href={buildHref({
+                      cat: activeCategory,
+                      q: query,
+                      sort: "populares",
+                      featured: featured ? "1" : undefined,
+                    })}
+                  >
+                    <ArrowDownWideNarrow className="size-3.5" />
+                    Populares
+                  </Link>
+                </Button>
+              </div>
+
+              <Button
+                asChild
+                variant={featured ? "secondary" : "outline"}
+                size="sm"
+                className="h-7 px-2.5 text-xs"
+              >
+                <Link
+                  href={buildHref({
+                    cat: activeCategory,
+                    q: query,
+                    sort,
+                    featured: featured ? undefined : "1",
+                  })}
+                  aria-pressed={featured}
+                >
+                  <Sparkles className="size-3.5" />
+                  Destacados
                 </Link>
               </Button>
-            )}
-          </div>
 
-          <SortToggle category={activeCategory} query={query} sort={sort} />
+              {hasFilters && (
+                <Button asChild variant="outline" size="sm" className="relative overflow-hidden">
+                  <Link href="/">
+                    <span className="absolute inset-0 -z-10 opacity-0 bg-gradient-to-r from-emerald-500/10 via-fuchsia-500/10 to-amber-500/10 transition-opacity hover:opacity-100" />
+                    Limpiar filtros
+                  </Link>
+                </Button>
+              )}
+            </div>
+          </div>
 
           {resources.length === 0 ? (
             <Card className={cn("border-dashed", styles.fadeInUp)} style={{ animationDelay: "40ms" }}>
@@ -181,25 +266,35 @@ export default async function Page({
               </CardHeader>
             </Card>
           ) : (
-            <>
-              <ResourceGrid
-                resources={resources}
-                activeCategory={activeCategory}
-                favoriteIds={favoriteIds}
-                isAuthenticated={Boolean(session)}
-              />
-              <ResourcePagination
-                page={page}
+            <Suspense fallback={<HomeResultsSkeleton />}>
+              <InfiniteResourceList
+                key={`${activeCategory}|${query}|${sort}|${featured}`}
+                initialResources={resources}
+                initialPage={1}
                 totalPages={totalPages}
                 category={activeCategory}
                 query={query}
                 sort={sort}
+                featured={featured}
+                activeCategory={activeCategory}
               />
-            </>
+            </Suspense>
           )}
         </main>
 
-        <SEOJsonLd resources={resources} />
+        <SEOJsonLd
+          resources={resources}
+          breadcrumb={
+            activeCategory !== "todas"
+              ? [
+                  {
+                    name: categories.find((c) => c.key === activeCategory)?.label ?? activeCategory,
+                    url: `/?cat=${activeCategory}`,
+                  },
+                ]
+              : []
+          }
+        />
       </SidebarInset>
     </SidebarProvider>
   );

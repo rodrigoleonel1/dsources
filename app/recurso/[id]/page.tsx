@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Script from "next/script";
-import { ArrowLeft, ExternalLink, UserRound } from "lucide-react";
+import { ArrowLeft, ExternalLink, Globe, Hash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AppShell } from "@/components/app-shell";
 import { FavoriteButton } from "@/components/favorite-button";
-import { ReportButton } from "@/components/report-button";
+import { CopyLinkButton } from "@/components/copy-link-button";
 import { RelatedResources } from "@/components/related-resources";
 import { getResourceById, getRelatedResources } from "@/lib/db/resources";
-import { getFavoriteResourceIds } from "@/lib/db/favorites";
-import { getSession } from "@/lib/auth";
-import { categories } from "@/components/categories";
-import { SITE_URL } from "@/lib/site";
+import { getCategories } from "@/lib/db/categories";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -48,34 +45,65 @@ export default async function ResourceDetailPage({
   params: Promise<Params>;
 }) {
   const { id } = await params;
-  const [resource, session] = await Promise.all([getResourceById(id), getSession()]);
+  const resource = await getResourceById(id);
 
   if (!resource || resource.status !== "approved") notFound();
 
-  const [favoriteIds, related] = await Promise.all([
-    session ? getFavoriteResourceIds(session.userId) : Promise.resolve([]),
-    getRelatedResources(resource),
-  ]);
-  const favoriteIdSet = new Set(favoriteIds);
+  const related = await getRelatedResources(resource);
+  const categories = await getCategories();
   const categoryLabel = categories.find((c) => c.key === resource.category)?.label ?? resource.category;
 
+  let urlDisplay = resource.url;
+  try {
+    const u = new URL(resource.url);
+    urlDisplay = `${u.hostname}${u.pathname !== "/" ? u.pathname : ""}`;
+  } catch {
+    // keep the raw url as fallback
+  }
+
+  const resourceUrl = `${SITE_URL}/recurso/${resource.id}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": "WebPage",
+    "@id": resourceUrl,
+    url: resourceUrl,
     name: resource.name,
     description: resource.description,
-    url: resource.url,
-    keywords: resource.tags.join(", "),
-    genre: resource.category,
-    mainEntityOfPage: `${SITE_URL}/recurso/${resource.id}`,
+    inLanguage: "es-AR",
+    datePublished: resource.createdAt,
+    mainEntity: {
+      "@type": "CreativeWork",
+      "@id": resourceUrl,
+      name: resource.name,
+      description: resource.description,
+      url: resource.url,
+      keywords: resource.tags.join(", "),
+      genre: resource.category,
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: SITE_URL },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: categoryLabel,
+          item: `${SITE_URL}/?cat=${resource.category}`,
+        },
+        { "@type": "ListItem", position: 3, name: resource.name, item: resourceUrl },
+      ],
+    },
   };
 
   return (
     <AppShell>
-      <Script
-        id="ld-resource"
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Button asChild variant="ghost" size="sm" className="mb-4 -ml-2">
@@ -85,12 +113,7 @@ export default async function ResourceDetailPage({
       </Button>
 
       <Card className="relative max-w-2xl mx-auto">
-        <FavoriteButton
-          resourceId={resource.id}
-          resourceName={resource.name}
-          initialFavorited={favoriteIdSet.has(resource.id)}
-          isAuthenticated={Boolean(session)}
-        />
+        <FavoriteButton resourceId={resource.id} resourceName={resource.name} />
         <CardHeader>
           <Badge variant="secondary" className="w-fit capitalize">
             {categoryLabel}
@@ -99,39 +122,41 @@ export default async function ResourceDetailPage({
           <CardDescription className="text-base">{resource.description}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center gap-2">
+            <a
+              href={resource.url}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border bg-muted/40 px-3 py-2 text-sm transition-colors hover:border-brand/40 hover:bg-brand/5"
+              title={resource.url}
+            >
+              <Globe className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+              <span className="min-w-0 flex-1 truncate text-brand hover:underline underline-offset-2">
+                {urlDisplay}
+              </span>
+              <ExternalLink className="size-3.5 shrink-0 text-muted-foreground" aria-hidden />
+            </a>
+            <CopyLinkButton url={resource.url} resourceName={resource.name} />
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
             {resource.tags.map((t) => (
               <Link
                 key={t}
                 href={`/?q=${encodeURIComponent(t)}`}
-                className="inline-flex items-center rounded-md border px-2 py-0.5 text-xs hover:bg-accent"
+                className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/40 px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:border-brand/40 hover:bg-brand/10 hover:text-brand"
+                aria-label={`Filtrar por tag ${t}`}
+                title={`Filtrar por tag ${t}`}
               >
-                #{t}
+                <Hash className="size-3 opacity-60" aria-hidden />
+                {t}
               </Link>
             ))}
-          </div>
-          {resource.submittedBy && (
-            <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <UserRound className="size-3.5" />
-              Enviado por {resource.submittedBy.name}
-            </p>
-          )}
-          <div className="flex flex-wrap items-center gap-4">
-            <Button asChild>
-              <a href={resource.url} target="_blank" rel="noreferrer noopener">
-                Visitar sitio <ExternalLink />
-              </a>
-            </Button>
-            <ReportButton resourceId={resource.id} />
           </div>
         </CardContent>
       </Card>
 
-      <RelatedResources
-        resources={related}
-        favoriteIds={favoriteIdSet}
-        isAuthenticated={Boolean(session)}
-      />
+      <RelatedResources resources={related} />
     </AppShell>
   );
 }

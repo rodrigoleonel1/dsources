@@ -1,31 +1,14 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
-import { getSession } from "@/lib/auth";
 import { findDuplicateByUrl, submitResource } from "@/lib/db/resources";
-import { SUBMITTABLE_CATEGORY_KEYS } from "@/data/category-keys";
-import { rateLimit } from "@/lib/rate-limit";
+import { isSubmittableCategory } from "@/lib/db/categories";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { checkBlacklist } from "@/lib/blacklist";
-
-const schema = z.object({
-  name: z.string().trim().min(2).max(80),
-  description: z.string().trim().min(10, "Contá un poco más (mínimo 10 caracteres)").max(300),
-  url: z.string().trim().url("La URL no es válida"),
-  tags: z
-    .array(z.string().trim().min(1).max(24))
-    .min(1, "Agregá al menos un tag")
-    .max(8, "Máximo 8 tags"),
-  category: z.enum(SUBMITTABLE_CATEGORY_KEYS as [string, ...string[]]),
-});
+import { formatZodIssues, resourceSchema } from "@/lib/validation";
 
 export async function POST(req: Request) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "Necesitás iniciar sesión" }, { status: 401 });
-  }
-
   const limit = await rateLimit({
     action: "submit-resource",
-    identifier: session.userId,
+    identifier: getClientIp(req),
     limit: 10,
     windowSeconds: 60 * 60,
   });
@@ -43,12 +26,16 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "JSON inválido" }, { status: 400 });
   }
 
-  const parsed = schema.safeParse(body);
+  const parsed = resourceSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: parsed.error.issues[0]?.message ?? "Datos inválidos" },
+      { error: formatZodIssues(parsed.error) },
       { status: 400 }
     );
+  }
+
+  if (!(await isSubmittableCategory(parsed.data.category))) {
+    return NextResponse.json({ error: "La categoría elegida no existe" }, { status: 400 });
   }
 
   const blacklistReason = checkBlacklist(parsed.data);
@@ -65,11 +52,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: msg }, { status: 409 });
   }
 
-  const resource = await submitResource({
-    ...parsed.data,
-    category: parsed.data.category as (typeof SUBMITTABLE_CATEGORY_KEYS)[number],
-    submittedBy: { userId: session.userId, name: session.name },
-  });
+  const resource = await submitResource(parsed.data);
 
   return NextResponse.json({ resource }, { status: 201 });
 }

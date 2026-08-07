@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
-import { SUBMITTABLE_CATEGORY_KEYS } from "@/data/category-keys";
+import { getSubmittableCategories } from "@/lib/db/categories";
 import { getAllApprovedForSeo } from "@/lib/db/resources";
 
 export const dynamic = "force-dynamic";
@@ -9,12 +9,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, changeFrequency: "daily", priority: 1 },
     { url: `${SITE_URL}/tags`, changeFrequency: "weekly", priority: 0.5 },
-    { url: `${SITE_URL}/login`, changeFrequency: "yearly", priority: 0.2 },
-    { url: `${SITE_URL}/register`, changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  const categoryEntries: MetadataRoute.Sitemap = SUBMITTABLE_CATEGORY_KEYS.map((cat) => ({
-    url: `${SITE_URL}/?cat=${cat}`,
+  const categories = await getSubmittableCategories();
+  const categoryEntries: MetadataRoute.Sitemap = categories.map((cat) => ({
+    url: `${SITE_URL}/?cat=${cat.key}`,
     changeFrequency: "daily",
     priority: 0.7,
   }));
@@ -24,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const resources = await getAllApprovedForSeo();
     resourceEntries = resources.map((r) => ({
       url: `${SITE_URL}/recurso/${r.id}`,
+      lastModified: r.createdAt,
       changeFrequency: "monthly",
       priority: 0.5,
     }));

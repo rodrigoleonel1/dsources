@@ -3,7 +3,7 @@
  * (optionally) a first admin user.
  *
  * Usage:
- *   npm run seed
+ *   pnpm run seed
  *
  * Env vars used:
  *   MONGODB_URI        (required)
@@ -12,10 +12,12 @@
  *   SEED_ADMIN_PASSWORD  creates/promotes an admin account you can log in with.
  *   SEED_ADMIN_NAME     (optional, default "Admin")
  */
-import "dotenv/config";
-import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+import { existsSync } from "node:fs";
+import { MongoClient, type Collection, type CreateIndexesOptions, type IndexSpecification } from "mongodb";
 import bcrypt from "bcryptjs";
 import { RESOURCES } from "../data/resources";
+import { DEFAULT_CATEGORIES } from "../data/categories";
 
 function normalize(str: string) {
   return str
@@ -35,7 +37,31 @@ function normalizeUrl(url: string) {
   }
 }
 
+/**
+ * The app already ensures indexes on startup (lib/db/indexes.ts), so the seed
+ * treats them as best-effort: a conflict with an existing same-key index
+ * (IndexOptionsConflict, code 85) shouldn't abort seeding.
+ */
+async function createIndexBestEffort(
+  col: Collection,
+  spec: IndexSpecification,
+  options?: CreateIndexesOptions
+) {
+  try {
+    await col.createIndex(spec, options);
+  } catch (err) {
+    const code = (err as { code?: number })?.code;
+    if (code === 85) {
+      console.warn("[seed] Índice ya existente con otra configuración; se omite.");
+    } else {
+      console.warn("[seed] No se pudo crear un índice:", err);
+    }
+  }
+}
+
 async function main() {
+  const envPath = existsSync(".env.local") ? ".env.local" : ".env";
+  dotenv.config({ path: envPath });
   const uri = process.env.MONGODB_URI;
   if (!uri) {
     console.error("Falta MONGODB_URI en el entorno (.env.local).");
@@ -48,11 +74,26 @@ async function main() {
 
   console.log(`Conectado a la base "${dbName}". Sembrando recursos...`);
 
+  const categoriesCol = db.collection("categories");
+  await createIndexBestEffort(categoriesCol, { key: 1 }, { unique: true });
+  let categoriesUpserted = 0;
+  for (const cat of DEFAULT_CATEGORIES) {
+    const res = await categoriesCol.updateOne(
+      { key: cat.key },
+      { $set: cat },
+      { upsert: true }
+    );
+    if (res.upsertedCount > 0) categoriesUpserted++;
+  }
+  console.log(
+    `Categorías aseguradas: ${DEFAULT_CATEGORIES.length} (${categoriesUpserted} nuevas).`
+  );
+
   const resourcesCol = db.collection("resources");
-  await resourcesCol.createIndex({ url: 1 });
-  await resourcesCol.createIndex({ status: 1, category: 1, createdAt: -1 });
-  await resourcesCol.createIndex({ nameNormalized: 1 });
-  await resourcesCol.createIndex({ urlNormalized: 1 });
+  await createIndexBestEffort(resourcesCol, { url: 1 });
+  await createIndexBestEffort(resourcesCol, { status: 1, category: 1, createdAt: -1 });
+  await createIndexBestEffort(resourcesCol, { nameNormalized: 1 });
+  await createIndexBestEffort(resourcesCol, { urlNormalized: 1 });
 
   let inserted = 0;
   let skipped = 0;
@@ -69,10 +110,10 @@ async function main() {
       tags: r.tags,
       category: r.category,
       status: "approved",
-      submittedBy: null,
       reviewedBy: null,
       createdAt: new Date(),
-      favoritesCount: 0,
+      votes: 0,
+      featured: r.featured ?? false,
       nameNormalized: normalize(r.name),
       tagsNormalized: r.tags.map(normalize).join(" "),
       urlNormalized: normalizeUrl(r.url),
@@ -85,7 +126,7 @@ async function main() {
   const adminPassword = process.env.SEED_ADMIN_PASSWORD;
   if (adminEmail && adminPassword) {
     const usersCol = db.collection("users");
-    await usersCol.createIndex({ email: 1 }, { unique: true });
+    await createIndexBestEffort(usersCol, { email: 1 }, { unique: true });
     const email = adminEmail.toLowerCase().trim();
     const passwordHash = await bcrypt.hash(adminPassword, 10);
     const existingAdmin = await usersCol.findOne({ email });

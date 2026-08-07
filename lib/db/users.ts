@@ -1,6 +1,6 @@
 import "server-only";
-import { ObjectId } from "mongodb";
 import { getDb } from "@/lib/mongodb";
+import type { SessionPayload } from "@/lib/auth";
 import type { UserDoc, PublicUser } from "@/data/types";
 
 async function usersCollection() {
@@ -8,45 +8,23 @@ async function usersCollection() {
   return db.collection<UserDoc>("users");
 }
 
-export function toPublicUser(doc: UserDoc): PublicUser {
+/** Adapts a UserDoc or a session payload to the PublicUser shape used by UI. */
+export function toPublicUser(doc: UserDoc): PublicUser;
+export function toPublicUser(session: SessionPayload | null): PublicUser | null;
+export function toPublicUser(
+  source: UserDoc | SessionPayload | null
+): PublicUser | null {
+  if (!source) return null;
+  const userId = "userId" in source ? source.userId : source._id!.toString();
   return {
-    id: doc._id!.toString(),
-    name: doc.name,
-    email: doc.email,
-    role: doc.role,
+    id: userId,
+    name: source.name,
+    email: source.email,
+    role: source.role,
   };
 }
 
 export async function findUserByEmail(email: string) {
   const col = await usersCollection();
   return col.findOne({ email: email.toLowerCase().trim() });
-}
-
-export async function findUserById(id: string) {
-  if (!ObjectId.isValid(id)) return null;
-  const col = await usersCollection();
-  return col.findOne({ _id: new ObjectId(id) });
-}
-
-export async function createUser(input: {
-  name: string;
-  email: string;
-  passwordHash: string;
-  role?: "user" | "admin";
-}) {
-  const col = await usersCollection();
-  const doc: UserDoc = {
-    name: input.name.trim(),
-    email: input.email.toLowerCase().trim(),
-    passwordHash: input.passwordHash,
-    role: input.role ?? "user",
-    createdAt: new Date(),
-  };
-  const res = await col.insertOne(doc);
-  return { ...doc, _id: res.insertedId };
-}
-
-export async function countUsers() {
-  const col = await usersCollection();
-  return col.countDocuments();
 }

@@ -1,18 +1,10 @@
 import { NextResponse } from "next/server";
-import { revalidateTag } from "next/cache";
-import { z } from "zod";
+import { revalidateTag, revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
 import { adminCreateResource, findDuplicateByUrl, listPendingResources } from "@/lib/db/resources";
-import { SUBMITTABLE_CATEGORY_KEYS } from "@/data/category-keys";
-import { CATEGORY_COUNTS_TAG } from "@/lib/cache";
-
-const schema = z.object({
-  name: z.string().trim().min(2).max(80),
-  description: z.string().trim().min(10).max(300),
-  url: z.string().trim().url("La URL no es válida"),
-  tags: z.array(z.string().trim().min(1).max(24)).min(1).max(8),
-  category: z.enum(SUBMITTABLE_CATEGORY_KEYS as [string, ...string[]]),
-});
+import { isSubmittableCategory } from "@/lib/db/categories";
+import { formatZodIssues, resourceSchema } from "@/lib/validation";
+import { RESOURCES_TAG } from "@/lib/cache";
 
 export async function GET() {
   const admin = await requireAdmin();
@@ -33,15 +25,19 @@ export async function POST(req: Request) {
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: "JSON inválido" }, { status: 400 });
+    return NextResponse.json({ error: "JSON invÃ¡lido" }, { status: 400 });
   }
 
-  const parsed = schema.safeParse(body);
+  const parsed = resourceSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: parsed.error.issues[0]?.message ?? "Datos inválidos" },
+      { error: formatZodIssues(parsed.error) },
       { status: 400 }
     );
+  }
+
+  if (!(await isSubmittableCategory(parsed.data.category))) {
+    return NextResponse.json({ error: "La categoría elegida no existe" }, { status: 400 });
   }
 
   const duplicate = await findDuplicateByUrl(parsed.data.url);
@@ -54,11 +50,12 @@ export async function POST(req: Request) {
 
   const resource = await adminCreateResource({
     ...parsed.data,
-    category: parsed.data.category as (typeof SUBMITTABLE_CATEGORY_KEYS)[number],
+    featured: parsed.data.featured ?? false,
     admin: { userId: admin.userId, name: admin.name },
   });
 
-  revalidateTag(CATEGORY_COUNTS_TAG);
+  revalidateTag(RESOURCES_TAG, { expire: 0 });
+  revalidatePath("/", "page");
 
   return NextResponse.json({ resource }, { status: 201 });
 }

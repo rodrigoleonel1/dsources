@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -8,15 +8,17 @@ import { Button } from "@/components/ui/button";
 
 export function SearchBar({ initialQuery = "" }: { initialQuery?: string }) {
   const [value, setValue] = useState(initialQuery);
+  const [prevQuery, setPrevQuery] = useState(initialQuery);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Keep the input in sync if the URL changes elsewhere (e.g. "Limpiar filtros").
-  useEffect(() => {
+  if (prevQuery !== initialQuery) {
+    setPrevQuery(initialQuery);
     setValue(initialQuery);
-  }, [initialQuery]);
+  }
 
   function pushQuery(next: string) {
     const params = new URLSearchParams(searchParams.toString());

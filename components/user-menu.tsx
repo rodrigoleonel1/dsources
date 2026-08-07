@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Heart, LogOut, Plus, ShieldCheck, User as UserIcon } from "lucide-react";
+import { Bookmark, LogOut, Plus, ShieldCheck, User as UserIcon } from "lucide-react";
 import type { PublicUser } from "@/data/types";
 
 function initials(name: string) {
@@ -31,16 +31,7 @@ export function UserMenu({ user }: { user: PublicUser | null }) {
   const [open, setOpen] = useState(false);
 
   if (!user) {
-    return (
-      <div className="flex items-center gap-2">
-        <Button asChild variant="ghost" size="sm">
-          <Link href="/login">Iniciar sesión</Link>
-        </Button>
-        <Button asChild size="sm">
-          <Link href="/register">Crear cuenta</Link>
-        </Button>
-      </div>
-    );
+    return null;
   }
 
   async function handleLogout() {
@@ -79,7 +70,7 @@ export function UserMenu({ user }: { user: PublicUser | null }) {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/favoritos">
-            <Heart /> Favoritos
+            <Bookmark /> Favoritos
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>

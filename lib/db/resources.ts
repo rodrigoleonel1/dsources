@@ -20,12 +20,12 @@ export function toResource(doc: ResourceDoc): Resource {
     tags: doc.tags,
     category: doc.category,
     status: doc.status,
-    submittedBy: doc.submittedBy ?? null,
     createdAt: (doc.createdAt instanceof Date
       ? doc.createdAt
       : new Date(doc.createdAt)
     ).toISOString(),
-    favoritesCount: doc.favoritesCount ?? 0,
+    votes: doc.votes ?? 0,
+    featured: doc.featured ?? false,
   };
 }
 
@@ -41,7 +41,8 @@ export type ListParams = {
   query?: string;
   page?: number;
   status?: ResourceDoc["status"];
-  sort?: "recent" | "popular";
+  sort?: "recientes" | "populares";
+  featured?: boolean;
 };
 
 export async function listResources({
@@ -49,11 +50,13 @@ export async function listResources({
   query = "",
   page = 1,
   status = "approved",
-  sort = "recent",
+  sort = "recientes",
+  featured,
 }: ListParams) {
   const col = await resourcesCollection();
   const filter: Filter<ResourceDoc> = { status };
   if (category && category !== "todas") filter.category = category;
+  if (featured !== undefined) filter.featured = featured;
 
   const q = query.trim();
   if (q) {
@@ -67,8 +70,11 @@ export async function listResources({
 
   const safePage = Math.max(1, page);
   const skip = (safePage - 1) * PAGE_SIZE;
+
   const sortSpec: Record<string, 1 | -1> =
-    sort === "popular" ? { favoritesCount: -1, createdAt: -1 } : { createdAt: -1 };
+    sort === "populares"
+      ? { votes: -1, createdAt: -1 }
+      : { createdAt: -1 };
 
   const [docs, total] = await Promise.all([
     col
@@ -89,22 +95,9 @@ export async function listResources({
   };
 }
 
-export async function countByCategory(status: ResourceDoc["status"] = "approved") {
+export async function countResources(status: ResourceDoc["status"]) {
   const col = await resourcesCollection();
-  const agg = await col
-    .aggregate<{ _id: CategoryKey; count: number }>([
-      { $match: { status } },
-      { $group: { _id: "$category", count: { $sum: 1 } } },
-    ])
-    .toArray();
-  const map = new Map<CategoryKey, number>();
-  let total = 0;
-  for (const row of agg) {
-    map.set(row._id, row.count);
-    total += row.count;
-  }
-  map.set("todas", total);
-  return map;
+  return col.countDocuments({ status });
 }
 
 export async function getResourceById(id: string) {
@@ -118,12 +111,18 @@ export async function getAllApprovedForSeo() {
   const col = await resourcesCollection();
   const docs = await col
     .find({ status: "approved" })
-    .project<{ _id: ObjectId; name: string; category: CategoryKey }>({
+    .project<{ _id: ObjectId; name: string; category: CategoryKey; createdAt: Date }>({
       name: 1,
       category: 1,
+      createdAt: 1,
     })
     .toArray();
-  return docs.map((d) => ({ id: d._id.toString(), name: d.name, category: d.category }));
+  return docs.map((d) => ({
+    id: d._id.toString(),
+    name: d.name,
+    category: d.category,
+    createdAt: d.createdAt instanceof Date ? d.createdAt : new Date(d.createdAt),
+  }));
 }
 
 function buildNormalizedFields(input: {
@@ -154,7 +153,6 @@ export async function submitResource(input: {
   url: string;
   tags: string[];
   category: CategoryKey;
-  submittedBy: { userId: string; name: string };
 }) {
   const col = await resourcesCollection();
   const doc: ResourceDoc = {
@@ -164,9 +162,9 @@ export async function submitResource(input: {
     tags: input.tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
     category: input.category,
     status: "pending",
-    submittedBy: input.submittedBy,
     createdAt: new Date(),
-    favoritesCount: 0,
+    votes: 0,
+    featured: false,
     ...buildNormalizedFields({ name: input.name, tags: input.tags, url: input.url }),
   };
   const res = await col.insertOne(doc);
@@ -180,6 +178,7 @@ export async function adminCreateResource(input: {
   tags: string[];
   category: CategoryKey;
   admin: { userId: string; name: string };
+  featured?: boolean;
 }) {
   const col = await resourcesCollection();
   const doc: ResourceDoc = {
@@ -189,11 +188,11 @@ export async function adminCreateResource(input: {
     tags: input.tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
     category: input.category,
     status: "approved",
-    submittedBy: null,
     reviewedBy: input.admin,
     reviewedAt: new Date(),
     createdAt: new Date(),
-    favoritesCount: 0,
+    votes: 0,
+    featured: input.featured ?? false,
     ...buildNormalizedFields({ name: input.name, tags: input.tags, url: input.url }),
   };
   const res = await col.insertOne(doc);
@@ -206,25 +205,27 @@ export async function listPendingResources() {
   return docs.map(toResource);
 }
 
-export async function reviewResource(
-  id: string,
+export async function reviewResourcesBatch(
+  ids: string[],
   decision: "approved" | "rejected",
   admin: { userId: string; name: string }
 ) {
-  if (!ObjectId.isValid(id)) return null;
+  const validIds = ids
+    .filter((id) => ObjectId.isValid(id))
+    .map((id) => new ObjectId(id));
+  if (validIds.length === 0) return { reviewed: 0, notFound: 0 };
   const col = await resourcesCollection();
-  const res = await col.findOneAndUpdate(
-    { _id: new ObjectId(id), status: "pending" },
+  const res = await col.updateMany(
+    { _id: { $in: validIds }, status: "pending" },
     {
       $set: {
         status: decision,
         reviewedBy: admin,
         reviewedAt: new Date(),
       },
-    },
-    { returnDocument: "after" }
+    }
   );
-  return res ? toResource(res) : null;
+  return { reviewed: res.modifiedCount, notFound: validIds.length - res.modifiedCount };
 }
 
 export async function deleteResource(id: string) {
@@ -242,6 +243,7 @@ export async function updateResource(
     url: string;
     tags: string[];
     category: CategoryKey;
+    featured?: boolean;
   }
 ) {
   if (!ObjectId.isValid(id)) return null;
@@ -255,21 +257,13 @@ export async function updateResource(
         url: input.url.trim(),
         tags: input.tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
         category: input.category,
+        featured: input.featured ?? false,
         ...buildNormalizedFields({ name: input.name, tags: input.tags, url: input.url }),
       },
     },
     { returnDocument: "after" }
   );
   return res ? toResource(res) : null;
-}
-
-export async function incrementFavoritesCount(id: string, delta: 1 | -1) {
-  if (!ObjectId.isValid(id)) return;
-  const col = await resourcesCollection();
-  await col.updateOne(
-    { _id: new ObjectId(id) },
-    { $inc: { favoritesCount: delta } }
-  );
 }
 
 export async function listResourcesByIds(ids: string[]) {
@@ -278,53 +272,6 @@ export async function listResourcesByIds(ids: string[]) {
   const col = await resourcesCollection();
   const docs = await col.find({ _id: { $in: validIds } }).toArray();
   return docs.map(toResource);
-}
-
-/** All of a user's own submissions, any status — used by "Mis envíos". */
-export async function listResourcesByUser(userId: string) {
-  const col = await resourcesCollection();
-  const docs = await col
-    .find({ "submittedBy.userId": userId })
-    .sort({ createdAt: -1 })
-    .toArray();
-  return docs.map(toResource);
-}
-
-/** Lets the original submitter edit their own resource while it's still pending. */
-export async function updateOwnPendingResource(
-  id: string,
-  userId: string,
-  input: { name: string; description: string; url: string; tags: string[]; category: CategoryKey }
-) {
-  if (!ObjectId.isValid(id)) return null;
-  const col = await resourcesCollection();
-  const res = await col.findOneAndUpdate(
-    { _id: new ObjectId(id), "submittedBy.userId": userId, status: "pending" },
-    {
-      $set: {
-        name: input.name.trim(),
-        description: input.description.trim(),
-        url: input.url.trim(),
-        tags: input.tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
-        category: input.category,
-        ...buildNormalizedFields({ name: input.name, tags: input.tags, url: input.url }),
-      },
-    },
-    { returnDocument: "after" }
-  );
-  return res ? toResource(res) : null;
-}
-
-/** Lets the original submitter withdraw their own resource while it's still pending. */
-export async function deleteOwnPendingResource(id: string, userId: string) {
-  if (!ObjectId.isValid(id)) return false;
-  const col = await resourcesCollection();
-  const res = await col.deleteOne({
-    _id: new ObjectId(id),
-    "submittedBy.userId": userId,
-    status: "pending",
-  });
-  return res.deletedCount > 0;
 }
 
 /** Every distinct tag across approved resources, with how many resources use it. */
@@ -341,6 +288,30 @@ export async function getAllTagsWithCounts() {
   return agg.map((t) => ({ tag: t._id, count: t.count }));
 }
 
+/** Number of approved resources per category key. */
+export async function countResourcesByCategory(): Promise<Record<string, number>> {
+  const col = await resourcesCollection();
+  const agg = await col
+    .aggregate<{ _id: string; count: number }>([
+      { $match: { status: "approved" } },
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+    ])
+    .toArray();
+  return Object.fromEntries(agg.map((r) => [r._id, r.count]));
+}
+
+/** Atomically adds `delta` (+1/-1) to a resource's vote count. Returns the new count. */
+export async function voteResource(id: string, delta: 1 | -1): Promise<number | null> {
+  if (!ObjectId.isValid(id)) return null;
+  const col = await resourcesCollection();
+  const res = await col.findOneAndUpdate(
+    { _id: new ObjectId(id), status: "approved" },
+    { $inc: { votes: delta }, $setOnInsert: { votes: 0 } },
+    { returnDocument: "after" }
+  );
+  return res ? Math.max(0, res.votes ?? 0) : null;
+}
+
 /** A handful of other approved resources sharing the category or a tag. */
 export async function getRelatedResources(resource: Resource, limit = 4) {
   const col = await resourcesCollection();
@@ -350,7 +321,7 @@ export async function getRelatedResources(resource: Resource, limit = 4) {
       status: "approved",
       $or: [{ category: resource.category }, { tags: { $in: resource.tags } }],
     })
-    .sort({ favoritesCount: -1, createdAt: -1 })
+    .sort({ createdAt: -1 })
     .limit(limit)
     .toArray();
   return docs.map(toResource);

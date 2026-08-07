@@ -9,6 +9,7 @@ export const RESOURCES: SeedResource[] = [
     url: "https://www.freecodecamp.org/",
     tags: ["html", "css", "javascript", "fullstack", "gratis"],
     category: "cursos",
+    featured: true,
   },
   {
     id: "2",
@@ -18,6 +19,7 @@ export const RESOURCES: SeedResource[] = [
     url: "https://www.frontendmentor.io/",
     tags: ["frontend", "retos", "ui", "css", "html"],
     category: "challenges",
+    featured: true,
   },
   {
     id: "3",
@@ -35,6 +37,7 @@ export const RESOURCES: SeedResource[] = [
     url: "https://developer.mozilla.org/",
     tags: ["documentacion", "web", "js", "css", "html"],
     category: "documentacion",
+    featured: true,
   },
   {
     id: "5",
@@ -44,6 +47,7 @@ export const RESOURCES: SeedResource[] = [
     url: "https://devdocs.io/",
     tags: ["documentacion", "buscador", "rapido"],
     category: "documentacion",
+    featured: true,
   },
   {
     id: "6",
@@ -52,6 +56,7 @@ export const RESOURCES: SeedResource[] = [
     url: "https://www.behance.net/",
     tags: ["diseño", "inspiracion", "portafolio"],
     category: "inspiraciones",
+    featured: true,
   },
   {
     id: "7",

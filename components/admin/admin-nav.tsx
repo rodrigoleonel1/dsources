@@ -6,7 +6,6 @@ const links = [
   { href: "/admin/pendientes", label: "Pendientes" },
   { href: "/admin/recursos", label: "Recursos publicados" },
   { href: "/admin/agregar", label: "Agregar recurso" },
-  { href: "/admin/reportes", label: "Reportes" },
 ] as const;
 
 export function AdminNav({ active }: { active: string }) {
@@ -23,7 +22,7 @@ export function AdminNav({ active }: { active: string }) {
           className={cn(
             "rounded-md px-3 py-1.5 text-sm transition-colors",
             active === l.href
-              ? "bg-indigo-600 text-white"
+              ? "bg-brand text-brand-foreground"
               : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           )}
         >

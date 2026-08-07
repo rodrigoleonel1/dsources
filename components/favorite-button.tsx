@@ -1,57 +1,33 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { Heart } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useFavorites } from "@/providers/favorites-provider";
 
 export function FavoriteButton({
   resourceId,
   resourceName,
-  initialFavorited,
-  isAuthenticated,
 }: {
   resourceId: string;
   resourceName: string;
-  initialFavorited: boolean;
-  isAuthenticated: boolean;
 }) {
-  const [favorited, setFavorited] = useState(initialFavorited);
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
+  const { isFavorited, toggle, ready } = useFavorites();
+  const favorited = isFavorited(resourceId);
 
-  async function handleClick() {
-    if (!isAuthenticated) {
-      toast("Iniciá sesión para guardar favoritos", {
+  function handleClick() {
+    toggle(resourceId);
+    if (favorited) {
+      toast(`${resourceName} quitado de favoritos`, {
         action: {
-          label: "Iniciar sesión",
-          onClick: () => router.push("/login?next=/"),
+          label: "Deshacer",
+          onClick: () => toggle(resourceId),
         },
       });
-      return;
+    } else {
+      toast.success(`${resourceName} agregado a favoritos`);
     }
-
-    const optimistic = !favorited;
-    setFavorited(optimistic);
-
-    startTransition(async () => {
-      try {
-        const res = await fetch(`/api/resources/${resourceId}/favorite`, {
-          method: "POST",
-        });
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        setFavorited(data.favorited);
-        if (data.favorited) {
-          toast.success(`${resourceName} agregado a favoritos`);
-        }
-      } catch {
-        setFavorited(!optimistic);
-        toast.error("No se pudo actualizar el favorito");
-      }
-    });
   }
 
   return (
@@ -60,16 +36,21 @@ export function FavoriteButton({
       variant="ghost"
       size="icon"
       onClick={handleClick}
-      disabled={isPending}
-      className="absolute right-2 top-2 z-10 size-8 rounded-full bg-background/70 backdrop-blur-sm hover:bg-background"
-      aria-pressed={favorited}
-      aria-label={favorited ? `Quitar ${resourceName} de favoritos` : `Agregar ${resourceName} a favoritos`}
+      aria-pressed={ready ? favorited : false}
+      aria-label={
+        favorited
+          ? `Quitar ${resourceName} de favoritos`
+          : `Agregar ${resourceName} a favoritos`
+      }
       title={favorited ? "Quitar de favoritos" : "Agregar a favoritos"}
+      className="group/fav absolute right-2 top-2 z-10 size-9 rounded-full transition-colors hover:bg-muted/70 hover:text-brand"
     >
-      <Heart
+      <Bookmark
         className={cn(
-          "size-4 transition-colors",
-          favorited ? "fill-rose-500 text-rose-500" : "text-foreground/70"
+          "size-5 transition-colors",
+          favorited
+            ? "fav-pop fill-brand text-brand"
+            : "text-muted-foreground group-hover/fav:text-brand/70"
         )}
       />
     </Button>

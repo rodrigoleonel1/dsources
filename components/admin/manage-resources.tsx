@@ -19,41 +19,40 @@ import {
 } from "@/components/ui/sheet";
 import { Card, CardContent } from "@/components/ui/card";
 import { TagInput } from "@/components/tag-input";
-import { SUBMITTABLE_CATEGORY_KEYS } from "@/data/category-keys";
-import { categories } from "@/components/categories";
-import type { Resource } from "@/data/types";
+import { useCategories } from "@/hooks/use-categories";
+import type { CategoryItem, Resource } from "@/data/types";
 
 function EditResourceSheet({
   resource,
+  categories,
   open,
   onOpenChange,
   onSaved,
 }: {
   resource: Resource | null;
+  categories: CategoryItem[];
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSaved: (updated: Resource) => void;
 }) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
-  const [category, setCategory] = useState<(typeof SUBMITTABLE_CATEGORY_KEYS)[number]>(
-    SUBMITTABLE_CATEGORY_KEYS[0]
-  );
-  const [tags, setTags] = useState<string[]>([]);
+  const [name, setName] = useState(resource?.name ?? "");
+  const [description, setDescription] = useState(resource?.description ?? "");
+  const [url, setUrl] = useState(resource?.url ?? "");
+  const [category, setCategory] = useState(resource?.category ?? "");
+  const [tags, setTags] = useState<string[]>(resource?.tags ?? []);
+  const [featured, setFeatured] = useState(resource?.featured ?? false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (resource) {
-      setName(resource.name);
-      setDescription(resource.description);
-      setUrl(resource.url);
-      setCategory(resource.category as (typeof SUBMITTABLE_CATEGORY_KEYS)[number]);
-      setTags(resource.tags);
-      setError(null);
-    }
-  }, [resource]);
+  const submittable = categories.filter((c) => c.submittable);
+  const categoryOptions = submittable.some((c) => c.key === resource?.category)
+    ? submittable
+    : [
+        ...(resource?.category
+          ? [{ key: resource.category, label: resource.category, icon: "", submittable: true }]
+          : []),
+        ...submittable,
+      ];
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -68,7 +67,7 @@ function EditResourceSheet({
       const res = await fetch(`/api/admin/resources/${resource.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, description, url, category, tags }),
+        body: JSON.stringify({ name, description, url, category, tags, featured }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -94,21 +93,22 @@ function EditResourceSheet({
         </SheetHeader>
         <form onSubmit={handleSubmit} className="flex flex-1 flex-col gap-4 px-4">
           {error && (
-            <div className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            <div role="alert" className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
               {error}
             </div>
           )}
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">Nombre</label>
-            <Input required maxLength={80} value={name} onChange={(e) => setName(e.target.value)} />
+            <label htmlFor="admin-edit-name" className="text-sm font-medium">Nombre</label>
+            <Input id="admin-edit-name" required maxLength={80} value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">URL</label>
-            <Input type="url" required value={url} onChange={(e) => setUrl(e.target.value)} />
+            <label htmlFor="admin-edit-url" className="text-sm font-medium">URL</label>
+            <Input id="admin-edit-url" type="url" required value={url} onChange={(e) => setUrl(e.target.value)} />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">Descripción</label>
+            <label htmlFor="admin-edit-description" className="text-sm font-medium">Descripción</label>
             <Textarea
+              id="admin-edit-description"
               required
               minLength={10}
               maxLength={300}
@@ -118,21 +118,29 @@ function EditResourceSheet({
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">Categoría</label>
+            <label htmlFor="admin-edit-category" className="text-sm font-medium">Categoría</label>
             <SelectNative
+              id="admin-edit-category"
               value={category}
-              onChange={(e) =>
-                setCategory(e.target.value as (typeof SUBMITTABLE_CATEGORY_KEYS)[number])
-              }
+              onChange={(e) => setCategory(e.target.value)}
             >
-              {SUBMITTABLE_CATEGORY_KEYS.map((key) => (
-                <option key={key} value={key}>
-                  {categories.find((c) => c.key === key)?.label ?? key}
+              {categoryOptions.map((c) => (
+                <option key={c.key} value={c.key}>
+                  {c.label}
                 </option>
               ))}
             </SelectNative>
           </div>
           <TagInput tags={tags} onChange={setTags} max={8} />
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={featured}
+              onChange={(e) => setFeatured(e.target.checked)}
+              className="size-4 accent-brand"
+            />
+            Destacado
+          </label>
           <SheetFooter className="px-0">
             <Button type="submit" disabled={loading}>
               {loading && <Loader2 className="animate-spin" />}
@@ -151,6 +159,7 @@ function EditResourceSheet({
 }
 
 export function ManageResources() {
+  const categories = useCategories();
   const [query, setQuery] = useState("");
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
@@ -175,7 +184,21 @@ export function ManageResources() {
   }
 
   useEffect(() => {
-    search("");
+    let active = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/resources");
+        const data = await res.json();
+        if (active) setResources(data.resources ?? []);
+      } catch {
+        if (active) toast.error("No se pudieron cargar los recursos");
+      } finally {
+        if (active) setLoading(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
   }, []);
 
   function onQueryChange(next: string) {
@@ -220,6 +243,7 @@ export function ManageResources() {
           onChange={(e) => onQueryChange(e.target.value)}
           placeholder="Buscar recurso publicado..."
           className="pl-9"
+          aria-label="Buscar recursos publicados"
         />
       </div>
 
@@ -262,7 +286,9 @@ export function ManageResources() {
       )}
 
       <EditResourceSheet
+        key={editing?.id ?? "closed"}
         resource={editing}
+        categories={categories}
         open={sheetOpen}
         onOpenChange={setSheetOpen}
         onSaved={onSaved}

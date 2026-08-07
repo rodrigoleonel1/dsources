@@ -1,20 +1,10 @@
-import type { ComponentType } from "react";
 import type { ObjectId } from "mongodb";
 
-export type CategoryKey =
-  | "todas"
-  | "cursos"
-  | "challenges"
-  | "herramientas"
-  | "documentacion"
-  | "diseño"
-  | "inspiraciones"
-  | "blogs"
-  | "apis"
-  | "librerias"
-  | "repositorios"
-  | "componentes"
-  | "didactico";
+/**
+ * Categories are dynamic: the list lives in MongoDB (collection: categories),
+ * so this is just an opaque string key.
+ */
+export type CategoryKey = string;
 
 export type ResourceStatus = "approved" | "pending" | "rejected";
 
@@ -27,11 +17,13 @@ export type ResourceDoc = {
   tags: string[];
   category: CategoryKey;
   status: ResourceStatus;
-  submittedBy: { userId: string; name: string } | null;
   reviewedBy?: { userId: string; name: string } | null;
   createdAt: Date;
   reviewedAt?: Date | null;
-  favoritesCount?: number;
+  /** Upvotes (public, browser-tracked). Defaults to 0. */
+  votes?: number;
+  /** Manually highlighted resource. Defaults to false. */
+  featured?: boolean;
   /** Accent/case-insensitive search helpers, kept in sync on write. */
   nameNormalized?: string;
   tagsNormalized?: string;
@@ -48,9 +40,9 @@ export type Resource = {
   tags: string[];
   category: CategoryKey;
   status: ResourceStatus;
-  submittedBy: { userId: string; name: string } | null;
   createdAt: string;
-  favoritesCount?: number;
+  votes: number;
+  featured: boolean;
 };
 
 /** Shape of the static seed catalog (before scripts/seed.ts migrates it into MongoDB). */
@@ -61,12 +53,16 @@ export type SeedResource = {
   url: string;
   tags: string[];
   category: CategoryKey;
+  featured?: boolean;
 };
 
 export type CategoryItem = {
   key: CategoryKey;
   label: string;
-  icon: ComponentType<{ className?: string }>;
+  /** Key into the icon map (see components/category-icons.tsx). */
+  icon: string;
+  /** Whether this category can be chosen when submitting a resource. */
+  submittable: boolean;
 };
 
 export type UserRole = "user" | "admin";

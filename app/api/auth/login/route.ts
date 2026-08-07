@@ -1,14 +1,9 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { findUserByEmail, toPublicUser } from "@/lib/db/users";
 import { setSessionCookie } from "@/lib/auth";
 import { verifyPassword } from "@/lib/password";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
-
-const schema = z.object({
-  email: z.string().trim().email("Email inválido"),
-  password: z.string().min(1, "Ingresá tu contraseña"),
-});
+import { formatZodIssues, loginSchema } from "@/lib/validation";
 
 export async function POST(req: Request) {
   const ip = getClientIp(req);
@@ -34,10 +29,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "JSON inválido" }, { status: 400 });
   }
 
-  const parsed = schema.safeParse(body);
+  const parsed = loginSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: parsed.error.issues[0]?.message ?? "Datos inválidos" },
+      { error: formatZodIssues(parsed.error) },
       { status: 400 }
     );
   }
@@ -64,6 +59,10 @@ export async function POST(req: Request) {
 
   const valid = await verifyPassword(password, user.passwordHash);
   if (!valid) {
+    return NextResponse.json({ error: "Credenciales inválidas" }, { status: 401 });
+  }
+
+  if (user.role !== "admin") {
     return NextResponse.json({ error: "Credenciales inválidas" }, { status: 401 });
   }
 

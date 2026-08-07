@@ -2,17 +2,22 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-export function LoginForm() {
+/** Only allow internal paths; default to the admin panel. */
+function resolveNext(value: string | null, fallback: string): string {
+  if (value && value.startsWith("/") && !value.startsWith("//")) return value;
+  return fallback;
+}
+
+export function LoginForm({ defaultNext = "/admin" }: { defaultNext?: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") || "/";
+  const next = resolveNext(searchParams.get("next"), defaultNext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +54,7 @@ export function LoginForm() {
       <Card>
         <CardContent className="space-y-4 pt-6">
           {error && (
-            <div className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            <div role="alert" className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
               {error}
             </div>
           )}
@@ -82,17 +87,11 @@ export function LoginForm() {
             />
           </div>
         </CardContent>
-        <CardFooter className="flex flex-col gap-4">
+        <CardFooter>
           <Button type="submit" className="w-full" disabled={loading}>
             {loading && <Loader2 className="animate-spin" />}
             Iniciar sesión
           </Button>
-          <p className="text-center text-sm text-muted-foreground">
-            ¿No tenés cuenta?{" "}
-            <Link href="/register" className="font-medium text-foreground underline underline-offset-2">
-              Creá una
-            </Link>
-          </p>
         </CardFooter>
       </Card>
     </form>

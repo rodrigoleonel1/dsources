@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { ResourceGridSkeleton } from "@/components/resource-grid-skeleton";
 
 export default function Loading() {
   return (
@@ -14,11 +15,11 @@ export default function Loading() {
       <div className="flex-1 p-4">
         <Skeleton className="mb-2 h-7 w-72" />
         <Skeleton className="mb-6 h-4 w-96" />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <Skeleton key={i} className="h-40 w-full" />
-          ))}
+        <div className="mb-4 flex items-center justify-between">
+          <Skeleton className="h-7 w-48" />
+          <Skeleton className="h-7 w-32" />
         </div>
+        <ResourceGridSkeleton count={9} />
       </div>
     </div>
   );

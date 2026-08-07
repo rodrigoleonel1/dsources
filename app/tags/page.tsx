@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
-import { getAllTagsWithCounts } from "@/lib/db/resources";
+import { TagsExplorer } from "@/components/tags-explorer";
+import { getCategories } from "@/lib/db/categories";
+import { getCachedTagsWithCounts } from "@/lib/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default async function TagsPage() {
-  const tags = await getAllTagsWithCounts();
+  const [tags, categories] = await Promise.all([
+    getCachedTagsWithCounts(),
+    getCategories(),
+  ]);
   const max = tags[0]?.count ?? 1;
 
   return (
@@ -25,23 +29,7 @@ export default async function TagsPage() {
       {tags.length === 0 ? (
         <p className="text-sm text-muted-foreground">Todavía no hay recursos publicados.</p>
       ) : (
-        <div className="flex flex-wrap gap-2">
-          {tags.map(({ tag, count }) => {
-            // Simple visual weight based on how common the tag is.
-            const scale = 0.85 + (count / max) * 0.5;
-            return (
-              <Link
-                key={tag}
-                href={`/?q=${encodeURIComponent(tag)}`}
-                className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 transition-colors hover:bg-accent hover:text-accent-foreground"
-                style={{ fontSize: `${scale}rem` }}
-              >
-                #{tag}
-                <span className="text-xs text-muted-foreground">{count}</span>
-              </Link>
-            );
-          })}
-        </div>
+        <TagsExplorer tags={tags} categories={categories} max={max} />
       )}
     </AppShell>
   );

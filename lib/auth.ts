@@ -89,19 +89,6 @@ export async function clearSessionCookie() {
   store.delete(SESSION_COOKIE);
 }
 
-/** Convenience guard for Route Handlers: returns the session or null. Callers decide the HTTP response. */
-export async function requireUser() {
-  return getSession();
-}
-
-/** Adapts a session payload (userId) to the PublicUser shape (id) used by UI components. */
-export function sessionToPublicUser(
-  session: SessionPayload | null
-): { id: string; name: string; email: string; role: "user" | "admin" } | null {
-  if (!session) return null;
-  return { id: session.userId, name: session.name, email: session.email, role: session.role };
-}
-
 /** Convenience guard for Route Handlers: returns the session only if the user is an admin. */
 export async function requireAdmin() {
   const session = await getSession();

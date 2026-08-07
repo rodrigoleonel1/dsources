@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FileWarning, ListChecks, Plus, ShieldAlert } from "lucide-react";
+import { ListChecks, Plus, ShieldAlert } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { listPendingResources } from "@/lib/db/resources";
-import { countReports } from "@/lib/db/reports";
-import { getCachedCategoryCounts } from "@/lib/cache";
+import { countResources, listPendingResources } from "@/lib/db/resources";
 import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -17,12 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminPage() {
-  const [pending, reports, counts] = await Promise.all([
+  const [pending, published] = await Promise.all([
     listPendingResources(),
-    countReports(),
-    getCachedCategoryCounts(),
+    countResources("approved"),
   ]);
-  const published = counts.get("todas") ?? 0;
 
   const cards = [
     {
@@ -42,14 +38,6 @@ export default async function AdminPage() {
       highlight: false,
     },
     {
-      href: "/admin/reportes",
-      icon: FileWarning,
-      title: "Reportes de links rotos",
-      badge: String(reports),
-      description: "Links que la comunidad marcó como rotos o inválidos.",
-      highlight: reports > 0,
-    },
-    {
       href: "/admin/agregar",
       icon: Plus,
       title: "Agregar recurso",
@@ -63,8 +51,8 @@ export default async function AdminPage() {
     <AppShell>
       <h1 className="mb-1 text-2xl font-bold">Panel de administración</h1>
       <p className="mb-6 text-sm text-muted-foreground">
-        Revisá los recursos enviados por la comunidad, gestioná el catálogo
-        publicado y respondé a los reportes.
+        Revisá los recursos enviados por la comunidad y gestioná el catálogo
+        publicado.
       </p>
 
       <AdminNav active="/admin" />
