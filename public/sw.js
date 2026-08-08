@@ -1,4 +1,4 @@
-const STATIC_CACHE = "dsources-static-v1";
+const STATIC_CACHE = "dsources-static-v2";
 
 self.addEventListener("install", () => {
   self.skipWaiting();
@@ -14,6 +14,23 @@ self.addEventListener("activate", (event) => {
       .then(() => self.clients.claim())
   );
 });
+
+/** Best-effort save into the cache without ever breaking the request. */
+function cachePutSilently(cacheName, request, response) {
+  try {
+    if (!response || response.bodyUsed) return;
+    if (!response.ok || response.status < 200 || response.status > 399) return;
+    const clone = response.clone();
+    caches
+      .open(cacheName)
+      .then((cache) => cache.put(request, clone))
+      .catch(() => {
+        // Cache failures (opaque/streamed bodies) are never fatal.
+      });
+  } catch {
+    // response.clone() may throw if the body was already read.
+  }
+}
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
@@ -33,7 +50,7 @@ self.addEventListener("fetch", (event) => {
         const cached = await cache.match(request);
         if (cached) return cached;
         const response = await fetch(request);
-        if (response.ok) cache.put(request, response.clone());
+        cachePutSilently(STATIC_CACHE, request, response);
         return response;
       })
     );
@@ -41,14 +58,18 @@ self.addEventListener("fetch", (event) => {
   }
 
   // Everything else (pages, data): network-first, falling back to cache when offline.
+  // Document/navigation responses stream their body, so we never try to cache them.
+  const isNavigation = request.mode === "navigate";
   event.respondWith(
-    fetch(request)
-      .then((response) => {
-        if (response.ok) {
-          caches.open(STATIC_CACHE).then((cache) => cache.put(request, response.clone()));
-        }
+    (async () => {
+      try {
+        const response = await fetch(request);
+        if (!isNavigation) cachePutSilently(STATIC_CACHE, request, response);
         return response;
-      })
-      .catch(() => caches.match(request))
+      } catch {
+        const cached = await caches.match(request);
+        return cached || Response.error();
+      }
+    })()
   );
 });

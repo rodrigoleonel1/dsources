@@ -22,7 +22,7 @@ export function AdminNav({ active }: { active: string }) {
           className={cn(
             "rounded-md px-3 py-1.5 text-sm transition-colors",
             active === l.href
-              ? "bg-brand text-brand-foreground"
+              ? "bg-brand text-white"
               : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           )}
         >

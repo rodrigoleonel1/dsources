@@ -288,14 +288,6 @@ export const RESOURCES: SeedResource[] = [
     category: "documentacion",
   },
   {
-    id: "34",
-    name: "Tailwind CSS",
-    description: "Framework CSS de utilidades para desarrollo rápido de UI.",
-    url: "https://tailwindcss.com",
-    tags: ["css", "framework", "ui"],
-    category: "diseño",
-  },
-  {
     id: "35",
     name: "shadcn/ui",
     description: "Colección de componentes reutilizables con Tailwind CSS.",
@@ -1136,5 +1128,437 @@ export const RESOURCES: SeedResource[] = [
     url: "https://fresh.deno.dev",
     tags: ["deno", "framework", "typescript"],
     category: "librerias",
+  },
+  {
+    id: "118",
+    name: "VS Code",
+    description:
+      "Editor de código gratuito y open source, el estándar de la industria con miles de extensiones.",
+    url: "https://code.visualstudio.com",
+    tags: ["editor", "ide", "productividad", "gratis"],
+    category: "herramientas",
+  },
+  {
+    id: "119",
+    name: "GitHub Copilot",
+    description:
+      "Asistente de IA para programar con autocompletado y chat integrado en tu editor.",
+    url: "https://github.com/features/copilot",
+    tags: ["ia", "asistente", "autocompletado", "productividad"],
+    category: "herramientas",
+  },
+  {
+    id: "120",
+    name: "Claude Code",
+    description:
+      "Agente de IA de terminal para programar con Claude, que escribe, refactoriza y ejecuta código.",
+    url: "https://claude.com/claude-code",
+    tags: ["ia", "agente", "terminal", "coding"],
+    category: "herramientas",
+  },
+  {
+    id: "121",
+    name: "Cursor",
+    description:
+      "Editor de código basado en VS Code diseñado para programar con la ayuda de IA.",
+    url: "https://www.cursor.com",
+    tags: ["ia", "editor", "asistente", "coding"],
+    category: "herramientas",
+  },
+  {
+    id: "122",
+    name: "OpenCode",
+    description:
+      "Agente de programación open source con IA que trabaja desde la terminal.",
+    url: "https://opencode.ai",
+    tags: ["ia", "agente", "terminal", "open-source"],
+    category: "herramientas",
+  },
+  {
+    id: "123",
+    name: "Ollama",
+    description:
+      "Ejecuta modelos de lenguaje como LLM locales en tu propia máquina, gratis y privado.",
+    url: "https://ollama.com",
+    tags: ["ia", "llm", "local", "privacidad"],
+    category: "herramientas",
+  },
+  {
+    id: "124",
+    name: "Postman",
+    description:
+      "Plataforma para diseñar, probar y documentar APIs con colaboración en equipo.",
+    url: "https://www.postman.com",
+    tags: ["api", "testing", "http", "rest"],
+    category: "herramientas",
+  },
+  {
+    id: "125",
+    name: "Bruno",
+    description:
+      "Herramienta open source de testing de APIs con una interfaz simplificada y archivos locales.",
+    url: "https://www.usebruno.com",
+    tags: ["api", "testing", "http", "open-source"],
+    category: "herramientas",
+  },
+  {
+    id: "126",
+    name: "The Modern JavaScript Tutorial",
+    description:
+      "Curso completo y gratuito de JavaScript desde cero hasta nivel avanzado.",
+    url: "https://javascript.info",
+    tags: ["javascript", "curso", "gratis", "es6"],
+    category: "didactico",
+  },
+  {
+    id: "127",
+    name: "CS50 - Introducción a la Ciencia de la Computación",
+    description:
+      "Curso de Harvard sobre fundamentos de programación, gratuito y en línea.",
+    url: "https://cs50.harvard.edu",
+    tags: ["curso", "harvard", "fundamentos", "gratis"],
+    category: "cursos",
+  },
+  {
+    id: "128",
+    name: "Machine Learning Crash Course",
+    description:
+      "Curso gratuito de Google con visualizaciones interactivas para aprender los fundamentos de ML.",
+    url: "https://developers.google.com/machine-learning/crash-course",
+    tags: ["machine-learning", "google", "gratis", "ia"],
+    category: "cursos",
+  },
+  {
+    id: "129",
+    name: "DeepLearning.AI",
+    description:
+      "Cursos cortos paguitos gratis y estructurados de IA por pioneros del campo como Andrew Ng.",
+    url: "https://www.deeplearning.ai",
+    tags: ["ia", "cursos", "machine-learning", "deeplearning"],
+    category: "cursos",
+  },
+  {
+    id: "130",
+    name: "Anthropic Academy",
+    description:
+      "Cursos gratuitos de Anthropic sobre IA con certificado, de alfabetización en IA hasta desarrollo de agentes.",
+    url: "https://academy.anthropic.com",
+    tags: ["ia", "cursos", "prompting", "agentes"],
+    category: "didactico",
+  },
+  {
+    id: "131",
+    name: "OpenAI Cookbook",
+    description:
+      "Ejemplos de código listos para ejecutar con los modelos de OpenAI, de RAG a agentes y funciones.",
+    url: "https://cookbook.openai.com",
+    tags: ["ia", "openai", "ejemplos", "llm"],
+    category: "documentacion",
+  },
+  {
+    id: "132",
+    name: "Anthropic Docs & Prompt Engineering",
+    description:
+      "Documentación oficial de Claude, incluye una de las mejores guías de prompt engineering.",
+    url: "https://docs.anthropic.com",
+    tags: ["ia", "docs", "prompt-engineering", "llm"],
+    category: "documentacion",
+  },
+  {
+    id: "133",
+    name: "Hugging Face",
+    description:
+      "La mayor comunidad de modelos open source, datasets y demos de IA ejecutables en la nube.",
+    url: "https://huggingface.co",
+    tags: ["ia", "modelos", "open-source", "datasets"],
+    category: "repositorios",
+  },
+  {
+    id: "134",
+    name: "Simon Willison's Blog",
+    description:
+      "Blog práctico de IA de uno de los desarrolladores más respetados, con reseñas honestas de cada modelo.",
+    url: "https://simonwillison.net",
+    tags: ["blog", "ia", "llm", "actualidad"],
+    category: "blogs",
+  },
+  {
+    id: "135",
+    name: "Hacker News",
+    description:
+      "El foro de tecnología con más influencia del mundo: noticias, discusión y proyectos nuevos.",
+    url: "https://news.ycombinator.com",
+    tags: ["comunidad", "noticias", "foro", "tech"],
+    category: "blogs",
+  },
+  {
+    id: "136",
+    name: "Latent Space",
+    description:
+      "Podcast y newsletter para ingenieros de IA, con entrevistas profundas a quienes construyen los modelos.",
+    url: "https://www.latent.space",
+    tags: ["podcast", "ia", "noticias", "entrevistas"],
+    category: "blogs",
+  },
+  {
+    id: "137",
+    name: "PyTorch",
+    description:
+      "Framework de aprendizaje profundo open source, dominante en investigación e IA.",
+    url: "https://pytorch.org",
+    tags: ["python", "machine-learning", "torch", "deeplearning"],
+    category: "librerias",
+  },
+  {
+    id: "138",
+    name: "TensorFlow",
+    description:
+      "Ecosistema open source de Google para machine learning y deep learning de producción.",
+    url: "https://www.tensorflow.org",
+    tags: ["python", "machine-learning", "google", "ia"],
+    category: "librerias",
+  },
+  {
+    id: "139",
+    name: "Gradio",
+    description:
+      "Crea demos de interfaces para tus modelos de ML en segundos con Python.",
+    url: "https://www.gradio.app",
+    tags: ["python", "ia", "demo", "ui"],
+    category: "herramientas",
+  },
+  {
+    id: "140",
+    name: "The Book of Shaders",
+    description:
+      "Guía interactiva y gratuita para aprender shaders GLSL desde cero.",
+    url: "https://thebookofshaders.com",
+    tags: ["shaders", "glsl", "gpu", "graficos"],
+    category: "didactico",
+  },
+  {
+    id: "141",
+    name: "LeetCode",
+    description:
+      "La plataforma de retos de algoritmos y entrevistas técnicas más usada del mundo.",
+    url: "https://leetcode.com",
+    tags: ["algoritmos", "entrevistas", "estructuras-de-datos", "retos"],
+    category: "challenges",
+  },
+  {
+    id: "142",
+    name: "Advent of Code",
+    description:
+      "Calendario de adviento con 25 desafíos de programación cada diciembre.",
+    url: "https://adventofcode.com",
+    tags: ["retos", "algoritmos", "navidad", "anual"],
+    category: "challenges",
+  },
+  {
+    id: "143",
+    name: "CodeSignal",
+    description:
+      "Retos de código y evaluaciones para practicar habilidades y conseguir entrevistas.",
+    url: "https://codesignal.com",
+    tags: ["retos", "entrevistas", "algoritmos", "evaluaciones"],
+    category: "challenges",
+  },
+  {
+    id: "144",
+    name: "HackerRank",
+    description:
+      "Ejercicios de programación en muchos lenguajes y entrevistas técnicas.",
+    url: "https://www.hackerrank.com",
+    tags: ["retos", "algoritmos", "entrevistas", "certificaciones"],
+    category: "challenges",
+  },
+  {
+    id: "145",
+    name: "Project Euler",
+    description:
+      "Desafíos matemáticos y computacionales para resolver con programación.",
+    url: "https://projecteuler.net",
+    tags: ["matematicas", "algoritmos", "retos", "numeros"],
+    category: "challenges",
+  },
+  {
+    id: "146",
+    name: "TypeScript Docs",
+    description:
+      "Documentación oficial de TypeScript: handbook, manual de referencia y guías.",
+    url: "https://www.typescriptlang.org/docs",
+    tags: ["typescript", "docs", "tipado", "backend"],
+    category: "documentacion",
+  },
+  {
+    id: "147",
+    name: "Node.js Docs",
+    description:
+      "Documentación oficial del runtime de JavaScript del lado del servidor.",
+    url: "https://nodejs.org/docs",
+    tags: ["nodejs", "docs", "backend", "javascript"],
+    category: "documentacion",
+  },
+  {
+    id: "148",
+    name: "Python Docs",
+    description:
+      "Documentación oficial de Python: tutoriales, referencia del lenguaje y la librería estándar.",
+    url: "https://docs.python.org",
+    tags: ["python", "docs", "referencia", "lenguaje"],
+    category: "documentacion",
+  },
+  {
+    id: "149",
+    name: "Docker Docs",
+    description:
+      "Guías y referencia de Docker para contenedores, imágenes y despliegues.",
+    url: "https://docs.docker.com",
+    tags: ["docker", "contenedores", "devops", "docs"],
+    category: "documentacion",
+  },
+  {
+    id: "150",
+    name: "PostgreSQL Docs",
+    description:
+      "Documentación oficial de PostgreSQL, la base de datos open source más avanzada.",
+    url: "https://www.postgresql.org/docs",
+    tags: ["postgres", "base-de-datos", "sql", "docs"],
+    category: "documentacion",
+  },
+  {
+    id: "151",
+    name: "Google Fonts",
+    description:
+      "Colección gratuita de tipografías web listas para usar con un enlace o import.",
+    url: "https://fonts.google.com",
+    tags: ["fuentes", "tipografia", "web", "gratis"],
+    category: "diseño",
+  },
+  {
+    id: "152",
+    name: "Coolors",
+    description:
+      "Generador y explorador de paletas de colores para tus proyectos de UI.",
+    url: "https://coolors.co",
+    tags: ["colores", "paletas", "ui", "inspiracion"],
+    category: "diseño",
+  },
+  {
+    id: "153",
+    name: "Iconify",
+    description:
+      "Más de 150.000 iconos open source de múltiples sets en una sola API.",
+    url: "https://iconify.design",
+    tags: ["iconos", "svg", "open-source", "ui"],
+    category: "diseño",
+  },
+  {
+    id: "154",
+    name: "Fontshare",
+    description:
+      "Tipografías libres y de calidad, seleccionadas por ITF y listas para usar.",
+    url: "https://www.fontshare.com",
+    tags: ["fuentes", "tipografia", "gratis", "itf"],
+    category: "diseño",
+  },
+  {
+    id: "155",
+    name: "Canva",
+    description:
+      "Diseñá gráficos, presentaciones y mockups sin ser diseñador profesional.",
+    url: "https://www.canva.com",
+    tags: ["diseño", "plantillas", "mockups", "graficos"],
+    category: "diseño",
+  },
+  {
+    id: "156",
+    name: "web.dev",
+    description:
+      "Guías oficiales de Google para construir experiencias web rápidas y accesibles.",
+    url: "https://web.dev",
+    tags: ["rendimiento", "accesibilidad", "web", "google"],
+    category: "blogs",
+  },
+  {
+    id: "157",
+    name: "Kent C. Dodds Blog",
+    description:
+      "Blog y cursos de React, testing y desarrollo de software moderno.",
+    url: "https://www.kentcdodds.com",
+    tags: ["react", "testing", "javascript", "blog"],
+    category: "blogs",
+  },
+  {
+    id: "158",
+    name: "Overreacted",
+    description:
+      "Blog de Dan Abramov sobre React y JavaScript, con explicaciones profundas.",
+    url: "https://overreacted.io",
+    tags: ["react", "javascript", "blog", "conceptos"],
+    category: "blogs",
+  },
+  {
+    id: "159",
+    name: "ByteByteGo",
+    description:
+      "Explicaciones visuales de sistemas, arquitecturas y patrones del back-end.",
+    url: "https://bytebytego.com",
+    tags: ["arquitectura", "distribuido", "system-design", "blog"],
+    category: "blogs",
+  },
+  {
+    id: "160",
+    name: "Refactoring UI",
+    description:
+      "Guías para mejorar el diseño de interfaces sin ser diseñador profesional.",
+    url: "https://www.refactoringui.com",
+    tags: ["diseño", "ui", "tipografia", "spacing"],
+    category: "blogs",
+  },
+  {
+    id: "161",
+    name: "GitHub REST API",
+    description:
+      "Documentación de la API para interactuar con repos, issues, pull requests y más.",
+    url: "https://docs.github.com/rest",
+    tags: ["github", "api", "rest", "integraciones"],
+    category: "apis",
+  },
+  {
+    id: "162",
+    name: "JSONPlaceholder",
+    description:
+      "API fake gratuita con datos reales para probar y prototipar frontends.",
+    url: "https://jsonplaceholder.typicode.com",
+    tags: ["api", "demo", "mock", "testing"],
+    category: "apis",
+  },
+  {
+    id: "163",
+    name: "The Movie Database API",
+    description:
+      "API gratuita con miles de datos de películas, series y actores.",
+    url: "https://developer.themoviedb.org",
+    tags: ["api", "peliculas", "entretenimiento", "data"],
+    category: "apis",
+  },
+  {
+    id: "164",
+    name: "RandomUser",
+    description:
+      "Genera usuarios y datos de prueba realistas para los projetos frontend.",
+    url: "https://randomuser.me",
+    tags: ["api", "datos-fake", "testing", "demo"],
+    category: "apis",
+  },
+  {
+    id: "165",
+    name: "API Ninjas",
+    description:
+      "Más de 75 APIs públicas gratuitas: texto, historia, finanzas, geografía y más.",
+    url: "https://api-ninjas.com",
+    tags: ["api", "gratis", "saas", "multiples"],
+    category: "apis",
   },
 ];
