@@ -478,17 +478,18 @@ export const RESOURCES: SeedResource[] = [
       "productividad",
       "generación de contenido",
       "flujos de trabajo",
+      "agentes",
     ],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "57",
     name: "Napkin AI",
     description:
       "Plataforma de IA que convierte texto en visualizaciones gráficas como diagramas, mapas mentales e infografías.",
-    url: "https://www.napkin.ai/",
-    tags: ["IA", "visualización", "presentaciones", "educación"],
-    category: "herramientas",
+url: "https://www.napkin.ai/",
+    tags: ["IA", "visualizacion", "presentaciones", "educacion"],
+    category: "ia",
   },
   {
     id: "58",
@@ -899,7 +900,7 @@ export const RESOURCES: SeedResource[] = [
       "datos estructurados",
       "generación de datos",
     ],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "95",
@@ -923,7 +924,7 @@ export const RESOURCES: SeedResource[] = [
       "ia",
       "diseño",
     ],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "97",
@@ -1145,7 +1146,7 @@ export const RESOURCES: SeedResource[] = [
       "Asistente de IA para programar con autocompletado y chat integrado en tu editor.",
     url: "https://github.com/features/copilot",
     tags: ["ia", "asistente", "autocompletado", "productividad"],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "120",
@@ -1154,7 +1155,7 @@ export const RESOURCES: SeedResource[] = [
       "Agente de IA de terminal para programar con Claude, que escribe, refactoriza y ejecuta código.",
     url: "https://claude.com/claude-code",
     tags: ["ia", "agente", "terminal", "coding"],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "121",
@@ -1163,7 +1164,7 @@ export const RESOURCES: SeedResource[] = [
       "Editor de código basado en VS Code diseñado para programar con la ayuda de IA.",
     url: "https://www.cursor.com",
     tags: ["ia", "editor", "asistente", "coding"],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "122",
@@ -1172,7 +1173,7 @@ export const RESOURCES: SeedResource[] = [
       "Agente de programación open source con IA que trabaja desde la terminal.",
     url: "https://opencode.ai",
     tags: ["ia", "agente", "terminal", "open-source"],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "123",
@@ -1181,7 +1182,7 @@ export const RESOURCES: SeedResource[] = [
       "Ejecuta modelos de lenguaje como LLM locales en tu propia máquina, gratis y privado.",
     url: "https://ollama.com",
     tags: ["ia", "llm", "local", "privacidad"],
-    category: "herramientas",
+    category: "ia",
   },
   {
     id: "124",
@@ -1559,6 +1560,1059 @@ export const RESOURCES: SeedResource[] = [
       "Más de 75 APIs públicas gratuitas: texto, historia, finanzas, geografía y más.",
     url: "https://api-ninjas.com",
     tags: ["api", "gratis", "saas", "multiples"],
+    category: "apis",
+  },
+  {
+    id: "166",
+    name: "Cloudflare",
+    description:
+      "CDN, DNS, protección DDoS y plataforma edge para servir aplicaciones de forma rápida y segura.",
+    url: "https://www.cloudflare.com",
+    tags: ["cdn", "hosting", "edge", "seguridad"],
+    category: "hosting",
+  },
+  {
+    id: "167",
+    name: "Vercel",
+    description:
+      "Plataforma de deploy para frontends y full-stack, la casa de Next.js.",
+    url: "https://vercel.com",
+    tags: ["deploy", "hosting", "serverless", "nextjs"],
+    category: "hosting",
+  },
+  {
+    id: "168",
+    name: "Netlify",
+    description:
+      "Plataforma de hosting y deploy para sitios estáticos y funciones serverless.",
+    url: "https://www.netlify.com",
+    tags: ["hosting", "deploy", "jamstack", "serverless"],
+    category: "hosting",
+  },
+  {
+    id: "169",
+    name: "Render",
+    description:
+      "Nube de hosting para apps web, APIs, cron jobs y bases de datos con deploy simple.",
+    url: "https://render.com",
+    tags: ["hosting", "deploy", "backend", "pricing-simple"],
+    category: "hosting",
+  },
+  {
+    id: "170",
+    name: "Deno",
+    description:
+      "Runtime de JavaScript y TypeScript seguro por defecto, con herramientas integradas.",
+    url: "https://deno.com",
+    tags: ["runtime", "typescript", "javascript", "backend"],
+    category: "librerias",
+  },
+  {
+    id: "171",
+    name: "GitHub",
+    description:
+      "La plataforma de control de versiones y colaboración open source más grande del mundo.",
+    url: "https://github.com",
+    tags: ["git", "repositorios", "colaboracion", "open-source"],
+    category: "repositorios",
+  },
+  {
+    id: "172",
+    name: "Supabase",
+    description:
+      "Backend open source con Postgres, auth, storage y realtime en una sola plataforma.",
+    url: "https://supabase.com",
+    tags: ["backend", "postgres", "baas", "auth"],
+    category: "herramientas",
+  },
+  {
+    id: "173",
+    name: "MongoDB Atlas",
+    description:
+      "Base de datos MongoDB gestionada en la nube, con clusters gratuitos para empezar.",
+    url: "https://www.mongodb.com/atlas",
+    tags: ["mongodb", "base-de-datos", "cloud", "nosql"],
+    category: "herramientas",
+  },
+  {
+    id: "174",
+    name: "Neon",
+    description:
+      "Postgres serverless con branching, escala automática y un tier gratuito generoso.",
+    url: "https://neon.tech",
+    tags: ["postgres", "serverless", "base-de-datos", "cloud"],
+    category: "herramientas",
+  },
+  {
+    id: "175",
+    name: "Groq",
+    description:
+      "Inferencia de LLMs ultrarrápida con chips propios, ideal para streaming y tiempo real.",
+    url: "https://groq.com",
+    tags: ["ia", "llm", "inferencia", "api"],
+    category: "ia",
+  },
+  {
+    id: "176",
+    name: "NVIDIA NIM",
+    description:
+      "Microservicios optimizados de NVIDIA para ejecutar modelos de IA en producción.",
+    url: "https://build.nvidia.com",
+    tags: ["ia", "gpu", "llm", "microservicios"],
+    category: "ia",
+  },
+  {
+    id: "177",
+    name: "Google AI Studio",
+    description:
+      "Plataforma para probar y prototipar con los modelos Gemini de Google gratis.",
+    url: "https://aistudio.google.com",
+    tags: ["ia", "gemini", "prototipado", "google"],
+    category: "ia",
+  },
+  {
+    id: "178",
+    name: "NotebookLM",
+    description:
+      "Asistente de IA de Google que resume, responde y organiza tus documentos y fuentes.",
+    url: "https://notebooklm.google.com",
+    tags: ["ia", "documentos", "resumen", "google"],
+    category: "ia",
+  },
+  {
+    id: "179",
+    name: "Cloudflare Workers AI",
+    description:
+      "Modelos de IA ejecutados en el edge de Cloudflare mediante Workers.",
+    url: "https://developers.cloudflare.com/workers-ai",
+    tags: ["ia", "edge", "workers", "inferencia"],
+    category: "ia",
+  },
+  {
+    id: "180",
+    name: "OpenRouter",
+    description:
+      "Un único API para acceder a cientos de modelos de IA de distintos proveedores.",
+    url: "https://openrouter.ai",
+    tags: ["ia", "llm", "api", "multi-modelo"],
+    category: "ia",
+  },
+  {
+    id: "181",
+    name: "Clerk",
+    description:
+      "Sistema de autenticación y gestión de usuarios listo para integrar en tu app.",
+    url: "https://clerk.com",
+    tags: ["auth", "usuarios", "login", "saas"],
+    category: "herramientas",
+  },
+  {
+    id: "182",
+    name: "Auth0",
+    description:
+      "Plataforma de identidad y autenticación con SSO, MFA y gestión de usuarios.",
+    url: "https://auth0.com",
+    tags: ["auth", "sso", "identidad", "seguridad"],
+    category: "herramientas",
+  },
+  {
+    id: "183",
+    name: "Resend",
+    description:
+      "API de envío de emails para desarrolladores, moderna y simple de integrar.",
+    url: "https://resend.com",
+    tags: ["email", "api", "transaccional", "react-email"],
+    category: "apis",
+  },
+  {
+    id: "184",
+    name: "Brevo",
+    description:
+      "Plataforma de email marketing y transaccional con herramientas de automatización.",
+    url: "https://www.brevo.com",
+    tags: ["email", "marketing", "transaccional", "automation"],
+    category: "apis",
+  },
+  {
+    id: "185",
+    name: "Mailtrap",
+    description:
+      "Inbox de prueba para capturar y testear emails antes de enviarlos de verdad.",
+    url: "https://mailtrap.io",
+    tags: ["email", "testing", "staging", "inbox"],
+    category: "herramientas",
+  },
+  {
+    id: "186",
+    name: "Sentry",
+    description:
+      "Monitoreo de errores y rendimiento en tiempo real para tu aplicación.",
+    url: "https://sentry.io",
+    tags: ["monitoreo", "errores", "observabilidad", "debugging"],
+    category: "herramientas",
+  },
+  {
+    id: "187",
+    name: "Google Analytics",
+    description:
+      "Analítica web de Google para entender el tráfico y comportamiento de usuarios.",
+    url: "https://analytics.google.com",
+    tags: ["analitica", "metrics", "usuarios", "google"],
+    category: "herramientas",
+  },
+  {
+    id: "188",
+    name: "Pipedream",
+    description:
+      "Plataforma de integraciones y automatizaciones con soporte para miles de apps.",
+    url: "https://pipedream.com",
+    tags: ["automatizacion", "integraciones", "workflows", "api"],
+    category: "herramientas",
+  },
+  {
+    id: "189",
+    name: "MockAPI",
+    description:
+      "Crea APIs mock con datos de prueba y prototipa tu frontend al instante.",
+    url: "https://mockapi.io",
+    tags: ["api", "mock", "prototipado", "testing"],
+    category: "apis",
+  },
+  {
+    id: "190",
+    name: "Notion",
+    description:
+      "Espacio de trabajo todo-en-uno para notas, docs, wikis, bases y proyectos.",
+    url: "https://www.notion.com",
+    tags: ["productividad", "notas", "wiki", "colaboracion"],
+    category: "productividad",
+  },
+  {
+    id: "191",
+    name: "Trello",
+    description:
+      "Tableros kanban visuales para organizar proyectos y tareas en equipo.",
+    url: "https://trello.com",
+    tags: ["kanban", "proyectos", "tareas", "colaboracion"],
+    category: "productividad",
+  },
+  {
+    id: "192",
+    name: "Linear",
+    description:
+      "Herramienta de gestión de proyectos y issues rápida, para equipos de producto.",
+    url: "https://linear.app",
+    tags: ["issues", "proyectos", "producto", "agil"],
+    category: "productividad",
+  },
+  {
+    id: "193",
+    name: "Miro",
+    description:
+      "Pizarra colaborativa online para brainstorming, diagramas y planificación.",
+    url: "https://miro.com",
+    tags: ["pizarra", "colaboracion", "diagramas", "brainstorming"],
+    category: "productividad",
+  },
+  {
+    id: "194",
+    name: "Discord",
+    description:
+      "Plataforma de comunidades y comunicación por voz, texto y video.",
+    url: "https://discord.com",
+    tags: ["comunidad", "chat", "comunicacion", "gaming"],
+    category: "productividad",
+  },
+  {
+    id: "195",
+    name: "Slack",
+    description:
+      "Herramienta de comunicación de equipos con canales, integraciones y bots.",
+    url: "https://slack.com",
+    tags: ["chat", "equipos", "comunicacion", "colaboracion"],
+    category: "productividad",
+  },
+  {
+    id: "196",
+    name: "Sanity",
+    description:
+      "CMS headless y plataforma de contenido estructurado con studio personalizable.",
+    url: "https://www.sanity.io",
+    tags: ["cms", "headless", "contenido", "estructurado"],
+    category: "herramientas",
+  },
+  {
+    id: "197",
+    name: "Contentful",
+    description:
+      "CMS headless empresarial para gestionar contenido y distribuirlo a cualquier frontend.",
+    url: "https://www.contentful.com",
+    tags: ["cms", "headless", "contenido", "api"],
+    category: "herramientas",
+  },
+  {
+    id: "198",
+    name: "Storybook",
+    description:
+      "Entorno de desarrollo para construir y documentar componentes UI de forma aislada.",
+    url: "https://storybook.js.org",
+    tags: ["componentes", "ui", "documentacion", "testing"],
+    category: "componentes",
+  },
+  {
+    id: "199",
+    name: "Cloudinary",
+    description:
+      "Plataforma de gestión de imágenes y videos con transformación y CDN.",
+    url: "https://cloudinary.com",
+    tags: ["imagenes", "video", "cdn", "optimizacion"],
+    category: "herramientas",
+  },
+  {
+    id: "200",
+    name: "Skills.sh",
+    description:
+      "Plataforma que evalúa y desarrolla tus habilidades técnicas con ejercicios prácticos.",
+    url: "https://www.skills.sh/",
+    tags: ["habilidades", "evaluacion", "ejercicios", "productividad"],
+    category: "productividad",
+  },
+  {
+    id: "201",
+    name: "AutoSkills.sh",
+    description:
+      "Automatiza la evaluación de habilidades técnicas y la selección de talento con IA.",
+    url: "https://www.autoskills.sh/",
+    tags: ["habilidades", "ia", "reclutamiento", "evaluacion"],
+    category: "ia",
+  },
+  {
+    id: "202",
+    name: "Lovable",
+    description:
+      "Generador de aplicaciones web con IA a partir de una descripción en lenguaje natural.",
+    url: "https://lovable.dev",
+    tags: ["ia", "generador", "no-code", "producto"],
+    category: "ia",
+  },
+  {
+    id: "203",
+    name: "LM Studio",
+    description:
+      "Descarga, ejecuta y prueba modelos de lenguaje locales en tu propia máquina.",
+    url: "https://lmstudio.ai",
+    tags: ["ia", "llm", "local", "modelos"],
+    category: "ia",
+  },
+  {
+    id: "204",
+    name: "DeepSeek",
+    description:
+      "Modelos de IA open source con razonamiento avanzado y muy buena relación costo/rendimiento.",
+    url: "https://www.deepseek.com",
+    tags: ["ia", "llm", "open-source", "razonamiento"],
+    category: "ia",
+  },
+  {
+    id: "205",
+    name: "Gemini",
+    description:
+      "Modelo multimodal de Google con app web, API y capacidades de razonamiento.",
+    url: "https://gemini.google.com",
+    tags: ["ia", "gemini", "google", "multimodal"],
+    category: "ia",
+  },
+  {
+    id: "206",
+    name: "Bolt.new",
+    description:
+      "Crea y despliega aplicaciones full-stack completas con IA directamente desde el navegador.",
+    url: "https://bolt.new",
+    tags: ["ia", "generador", "fullstack", "no-code"],
+    category: "ia",
+  },
+  {
+    id: "207",
+    name: "Eldor UI",
+    description:
+      "Sitio y comunidad de diseños e inspiración de interfaces con estilo moderno.",
+    url: "https://www.eldoraui.site",
+    tags: ["ui", "inspiracion", "diseño", "landings"],
+    category: "inspiraciones",
+  },
+  {
+    id: "208",
+    name: "Cosmos",
+    description:
+      "Colecciona y organiza inspiración y recursos de diseño en tableros visuales.",
+    url: "https://www.cosmos.so/",
+    tags: ["inspiracion", "coleccion", "diseño", "organizacion"],
+    category: "inspiraciones",
+  },
+  {
+    id: "209",
+    name: "Craft - Rauno",
+    description:
+      "Portafolio y tutorial de craft UI: cómo el autor diseñó y codeó sus interfaces.",
+    url: "https://rauno.me/craft",
+    tags: ["ui", "portfolio", "diseño", "craft"],
+    category: "inspiraciones",
+  },
+  {
+    id: "210",
+    name: "Fancy Components",
+    description:
+      "Componentes React y de UI modernos, accesibles y fáciles de copiar.",
+    url: "https://www.fancycomponents.dev/",
+    tags: ["componentes", "react", "ui", "accesible"],
+    category: "componentes",
+  },
+  {
+    id: "211",
+    name: "Colour Contrast Checker",
+    description:
+      "Verifica el contraste de colores y la accesibilidad según WCAG.",
+    url: "https://colourcontrast.cc/",
+    tags: ["accesibilidad", "contraste", "colores", "wcag"],
+    category: "herramientas",
+  },
+  {
+    id: "212",
+    name: "Contrast Tools",
+    description:
+      "Herramienta de accesibilidad para chequear combinaciones de colores de forma rápida.",
+    url: "https://contrast.tools/",
+    tags: ["accesibilidad", "contraste", "colores", "wcag"],
+    category: "herramientas",
+  },
+  {
+    id: "213",
+    name: "Who Can Use",
+    description:
+      "Simula cómo perciben tus colores personas con diferentes tipos de daltonismo.",
+    url: "https://www.whocanuse.com/",
+    tags: ["accesibilidad", "daltonismo", "colores", "contraste"],
+    category: "herramientas",
+  },
+  {
+    id: "214",
+    name: "Three.js",
+    description:
+      "Librería JavaScript para crear gráficos 3D interactivos en el navegador.",
+    url: "https://threejs.org",
+    tags: ["3d", "webgl", "javascript", "graficos"],
+    category: "librerias",
+  },
+  {
+    id: "215",
+    name: "Auth.js",
+    description:
+      "Solución de autenticación open source para Next.js y otras frameworks.",
+    url: "https://authjs.dev",
+    tags: ["auth", "nextjs", "open-source", "login"],
+    category: "librerias",
+  },
+  {
+    id: "216",
+    name: "Strapi",
+    description:
+      "CMS headless open source que construye tus APIs de contenido en minutos.",
+    url: "https://strapi.io",
+    tags: ["cms", "headless", "api", "open-source"],
+    category: "herramientas",
+  },
+  {
+    id: "217",
+    name: "Payload",
+    description:
+      "CMS headless y plataforma de aplicaciones con backend TypeScript nativo.",
+    url: "https://payloadcms.com",
+    tags: ["cms", "typescript", "headless", "backend"],
+    category: "herramientas",
+  },
+  {
+    id: "218",
+    name: "CSS Diner",
+    description:
+      "Juego interactivo para aprender selectores CSS de una forma divertida.",
+    url: "https://flukeout.github.io/",
+    tags: ["css", "selectores", "juego", "aprender"],
+    category: "didactico",
+  },
+  {
+    id: "219",
+    name: "DevChallenges",
+    description:
+      "Challenges de desarrollo para construir proyectos reales y mejorar tu portafolio.",
+    url: "https://devchallenges.io/",
+    tags: ["retos", "proyectos", "frontend", "portafolio"],
+    category: "challenges",
+  },
+  {
+    id: "220",
+    name: "Flexbox Froggy",
+    description:
+      "Juego para aprender flexbox resolviendo niveles con ranas saltarinas.",
+    url: "https://flexboxfroggy.com/",
+    tags: ["css", "flexbox", "juego", "aprender"],
+    category: "didactico",
+  },
+  {
+    id: "221",
+    name: "Coding Fantasy",
+    description:
+      "Convierte retos de código en partidas estilo RPG para aprender mientras juegas.",
+    url: "https://codingfantasy.com/",
+    tags: ["css", "grid", "juego", "retos"],
+    category: "didactico",
+  },
+  {
+    id: "222",
+    name: "Codédex",
+    description:
+      "Curso gamificado e interactivo de desarrollo web con proyectos reales.",
+    url: "https://www.codedex.io/",
+    tags: ["gamificado", "javascript", "python", "aprender"],
+    category: "didactico",
+  },
+  {
+    id: "223",
+    name: "CodeCombat",
+    description:
+      "Aprende programación jugando, diseñado para edades escolares y principiantes.",
+    url: "https://codecombat.com/",
+    tags: ["juego", "python", "javascript", "aprender"],
+    category: "didactico",
+  },
+  {
+    id: "224",
+    name: "CodeMonkey",
+    description:
+      "Plataforma lúdica para enseñar programación a niños y jóvenes.",
+    url: "https://www.codemonkey.com/",
+    tags: ["juego", "educacion", "programacion", "kids"],
+    category: "didactico",
+  },
+  {
+    id: "225",
+    name: "JavaScript100",
+    description:
+      "100 desafíos de JavaScript para mejorar tus habilidades con retos diarios.",
+    url: "https://www.javascript100.dev/",
+    tags: ["retos", "javascript", "ejercicios", "aprender"],
+    category: "challenges",
+  },
+  {
+    id: "226",
+    name: "Knight Lab Mystery",
+    description:
+      "Ejercicio narrativo con historias de misterio para explorar datos periodísticos.",
+    url: "https://mystery.knightlab.com/",
+    tags: ["misterio", "narrativa", "ejercicio", "aprender"],
+    category: "didactico",
+  },
+  {
+    id: "227",
+    name: "Styled Components",
+    description:
+      "Librería CSS-in-JS para escribir estilos por componente en React y React Native.",
+    url: "https://styled-components.com/",
+    tags: ["css", "styled", "react", "css-in-js"],
+    category: "librerias",
+  },
+  {
+    id: "228",
+    name: "Neobrutalism",
+    description:
+      "Sitio e inspiración sobre la estética neobrutalista: bordes duros, sombras y color.",
+    url: "https://neobrutalism.com/",
+    tags: ["estetica", "inspiracion", "ui", "diseño"],
+    category: "inspiraciones",
+  },
+  {
+    id: "229",
+    name: "Shapes Gallery",
+    description:
+      "Galería de formas y siluetas SVG para usar en tus diseños web.",
+    url: "https://www.shapes.gallery/",
+    tags: ["svg", "shapes", "formas", "recursos"],
+    category: "diseño",
+  },
+  {
+    id: "230",
+    name: "Radix UI",
+    description:
+      "Componentes headless accesibles y con API de alto nivel para React.",
+    url: "https://www.radix-ui.com/",
+    tags: ["componentes", "headless", "accesible", "react"],
+    category: "componentes",
+  },
+  {
+    id: "231",
+    name: "Panda CSS",
+    description:
+      "Kit de herramientas CSS-in-JS de estilo con condiciones y temas tipados.",
+    url: "https://panda-css.com/",
+    tags: ["css", "css-in-js", "typescript", "styling"],
+    category: "librerias",
+  },
+  {
+    id: "232",
+    name: "Hero UI",
+    description:
+      "Librería de componentes UI moderna, rápida y accesible para React.",
+    url: "https://heroui.com/",
+    tags: ["componentes", "react", "ui", "accesible"],
+    category: "componentes",
+  },
+  {
+    id: "233",
+    name: "NeoBrutalism Dev",
+    description:
+      "Biblioteca y guía para construir interfaces neobrutalistas con Tailwind.",
+    url: "https://www.neobrutalism.dev/",
+    tags: ["neobrutalismo", "componentes", "tailwind", "ui"],
+    category: "componentes",
+  },
+  {
+    id: "234",
+    name: "LuxeUI",
+    description:
+      "Componentes y template de interfaz premium para construir productos con elegancia.",
+    url: "https://www.luxeui.com/",
+    tags: ["componentes", "ui", "premium", "plantillas"],
+    category: "componentes",
+  },
+  {
+    id: "235",
+    name: "HTMLrev",
+    description:
+      "Colección de plantillas HTML gratuitas para landing pages y sitios web.",
+    url: "https://htmlrev.com/",
+    tags: ["plantillas", "html", "landing", "gratis"],
+    category: "inspiraciones",
+  },
+  {
+    id: "236",
+    name: "DaisyUI",
+    description:
+      "Componentes para Tailwind CSS con clases a base de utilidades y temas.",
+    url: "https://daisyui.com/",
+    tags: ["tailwind", "componentes", "temas", "css"],
+    category: "componentes",
+  },
+  {
+    id: "237",
+    name: "Sonner",
+    description:
+      "Librería de toasts minimalista y elegante para React y Next.js.",
+    url: "https://sonner.emilkowal.ski/",
+    tags: ["toast", "react", "notificaciones", "ui"],
+    category: "componentes",
+  },
+  {
+    id: "238",
+    name: "React Day Picker",
+    description:
+      "Selectores de fechas accesibles, customizables y listos para producción.",
+    url: "https://daypicker.dev/",
+    tags: ["componentes", "fecha", "calendario", "react"],
+    category: "componentes",
+  },
+  {
+    id: "239",
+    name: "Color Hunt",
+    description:
+      "Paletas de colores curadas por la comunidad para tus proyectos de diseño.",
+    url: "https://colorhunt.co/",
+    tags: ["colores", "paletas", "inspiracion", "combinaciones"],
+    category: "diseño",
+  },
+  {
+    id: "240",
+    name: "CSS Grid Generator",
+    description:
+      "Generador visual de cuadriculas CSS Grid con exportación directa del código.",
+    url: "https://cssgridgenerator.io/",
+    tags: ["css", "grid", "generador", "tool"],
+    category: "herramientas",
+  },
+  {
+    id: "241",
+    name: "CSS Gradient Text",
+    description:
+      "Generador de texto con gradientes CSS para aplicar en tus titulares.",
+    url: "https://www.cssgradienttext.com/",
+    tags: ["css", "gradientes", "texto", "generador"],
+    category: "herramientas",
+  },
+  {
+    id: "242",
+    name: "Bright (Code Hike)",
+    description:
+      "Snippets de código en tiempo real con sintaxis resaltada y estilos propios.",
+    url: "https://bright.codehike.org/",
+    tags: ["codigo", "components", "snippets", "codehike"],
+    category: "herramientas",
+  },
+  {
+    id: "243",
+    name: "Boring Avatars",
+    description:
+      "Genera avatares únicos y estilizados a partir de una semilla con múltiples paletas.",
+    url: "https://boringavatars.com/",
+    tags: ["avatares", "generador", "svg", "ui"],
+    category: "herramientas",
+  },
+  {
+    id: "244",
+    name: "Ark UI",
+    description:
+      "Componentes headless de bajo nivel para construir tus propias interfaces accesibles.",
+    url: "https://ark-ui.com/",
+    tags: ["componentes", "headless", "reactición", "vue", "solid"],
+    category: "componentes",
+  },
+  {
+    id: "245",
+    name: "AI Colors",
+    description:
+      "Generador de paletas de colores asistido por IA para interfaces.",
+    url: "https://www.bairesdev.com/tools/ai-colors",
+    tags: ["colores", "paletas", "ia", "generador"],
+    category: "herramientas",
+  },
+  {
+    id: "246",
+    name: "3D Transformer",
+    description:
+      "Aplica transformaciones 3D a imágenes y exportación en formatos modernos.",
+    url: "https://www.3dtransformer.com/",
+    tags: ["3d", "imagenes", "transformaciones", "tool"],
+    category: "herramientas",
+  },
+  {
+    id: "247",
+    name: "Expo",
+    description:
+      "Framework y plataforma para construir apps iOS, Android y web con React Native.",
+    url: "https://expo.dev/",
+    tags: ["react-native", "movil", "ios", "android"],
+    category: "librerias",
+  },
+  {
+    id: "248",
+    name: "WC Toast",
+    description:
+      "Web component de toasts accesibles, ligero y configurable sin dependencias.",
+    url: "https://abdmmar.github.io/wc-toast/",
+    tags: ["toast", "web-component", "accesible", "ui"],
+    category: "componentes",
+  },
+  {
+    id: "249",
+    name: "Pheralb Toast",
+    description:
+      "Colección de toasts inspirada en la estética de los sistemas modernos.",
+    url: "https://toast.pheralb.dev/",
+    tags: ["toast", "inspiracion", "ui", "design-system"],
+    category: "componentes",
+  },
+  {
+    id: "250",
+    name: "React Hot Toast",
+    description:
+      "Librería de notificaciones toast para React, ligera y fácil de usar.",
+    url: "https://react-hot-toast.com/",
+    tags: ["toast", "react", "notificaciones", "ui"],
+    category: "componentes",
+  },
+  {
+    id: "251",
+    name: "Vitest",
+    description:
+      "Framework de testing ultrarrápido para Vite y proyectos modernos de JavaScript.",
+    url: "https://vitest.dev/",
+    tags: ["testing", "vite", "unit-tests", "javascript"],
+    category: "testing",
+  },
+  {
+    id: "252",
+    name: "pytest",
+    description:
+      "Framework de testing maduro y popular para escribir tests simples en Python.",
+    url: "https://docs.pytest.org/en/stable/",
+    tags: ["testing", "python", "unit-tests", "pytest"],
+    category: "testing",
+  },
+  {
+    id: "253",
+    name: "Playwright",
+    description:
+      "Automatización y testing end-to-end de navegadores con un solo API.",
+    url: "https://playwright.dev/",
+    tags: ["testing", "e2e", "browser", "automatizacion"],
+    category: "testing",
+  },
+  {
+    id: "254",
+    name: "Mocha",
+    description:
+      "Framework de testing JavaScript flexible que corre en Node y el navegador.",
+    url: "https://mochajs.org/",
+    tags: ["testing", "javascript", "unit-tests", "node"],
+    category: "testing",
+  },
+  {
+    id: "255",
+    name: "Jest",
+    description:
+      "Framework de testing JavaScript con zero config y snapshot testing.",
+    url: "https://jestjs.io/",
+    tags: ["testing", "javascript", "react", "snapshots"],
+    category: "testing",
+  },
+  {
+    id: "256",
+    name: "Cypress",
+    description:
+      "Testing end-to-end para aplicaciones web modernas, rápido y amigable.",
+    url: "https://www.cypress.io/",
+    tags: ["testing", "e2e", "component", "cypress"],
+    category: "testing",
+  },
+  {
+    id: "257",
+    name: "Img.to",
+    description:
+      "Editor y conversor de imágenes en línea con herramientas de IA incluidas.",
+    url: "https://imgto.xyz/",
+    tags: ["imagenes", "conversor", "ia", "editor"],
+    category: "herramientas",
+  },
+  {
+    id: "258",
+    name: "60fps.design",
+    description:
+      "Colección de técnicas y recursos sobre animaciones fluidas de interfaz.",
+    url: "https://60fps.design/",
+    tags: ["animacion", "rendimiento", "ui", "60fps"],
+    category: "herramientas",
+  },
+  {
+    id: "259",
+    name: "Recent Design",
+    description:
+      "Galería curada de diseño web reciente de inspiración y tendencias.",
+    url: "https://recent.design/",
+    tags: ["inspiracion", "design", "tendencias", "galeria"],
+    category: "inspiraciones",
+  },
+  {
+    id: "260",
+    name: "Bento Grids",
+    description:
+      "Gallery y analisis de diseños de bento grids para interfaces modernas.",
+    url: "https://bentogrids.com/",
+    tags: ["bento", "grid", "inspiracion", "layout"],
+    category: "inspiraciones",
+  },
+  {
+    id: "261",
+    name: "Open Peeps",
+    description:
+      "Ilustraciones de personas estilo hand-drawn en SVG, listas para usar.",
+    url: "https://www.openpeeps.com/",
+    tags: ["ilustracions", "svg", "personas", "recursos"],
+    category: "diseño",
+  },
+  {
+    id: "262",
+    name: "Lukasz Adam",
+    description:
+      "Ilustraciones gratuitas y profesionales para proyectos y productos.",
+    url: "https://lukaszadam.com/illustrations",
+    tags: ["ilustraciones", "gratis", "svg", "recursos"],
+    category: "diseño",
+  },
+  {
+    id: "263",
+    name: "Cool Shapes",
+    description:
+      "Editor de formas coloridas para generar fondos y decoraciones únicas.",
+    url: "https://coolshap.es/",
+    tags: ["formas", "fondos", "generador", "decoracion"],
+    category: "diseño",
+  },
+  {
+    id: "264",
+    name: "CSS Peeps",
+    description:
+      "Personajes y caras expresivas dibujadas enteramente con CSS.",
+    url: "https://css-peeps.com/",
+    tags: ["css", "personajes", "cara", "divertido"],
+    category: "diseño",
+  },
+  {
+    id: "265",
+    name: "Simple Icons",
+    description:
+      "Miles de SVGs de las marcas más populares de la industria tech.",
+    url: "https://simpleicons.org/",
+    tags: ["iconos", "marcas", "svg", "brands"],
+    category: "diseño",
+  },
+  {
+    id: "266",
+    name: "Radix Icons",
+    description:
+      "Set de iconos de Radix, consistentes y disponibles como componentes.",
+    url: "https://www.radix-ui.com/icons",
+    tags: ["iconos", "svg", "react", "design-system"],
+    category: "diseño",
+  },
+  {
+    id: "267",
+    name: "Lucide",
+    description:
+      "Set de iconos open source, cleanos y consistentes con soporte React/Vue/Svelte.",
+    url: "https://lucide.dev/",
+    tags: ["iconos", "svg", "open-source", "ui"],
+    category: "diseño",
+  },
+  {
+    id: "268",
+    name: "Heroicons",
+    description:
+      "Iconos de interfaz creados por el equipo de Tailwind CSS.",
+    url: "https://heroicons.com/",
+    tags: ["iconos", "svg", "tailwind", "ui"],
+    category: "diseño",
+  },
+  {
+    id: "269",
+    name: "Devicon",
+    description:
+      "Iconos de lenguajes, herramientas y tecnologías de desarrollo.",
+    url: "https://devicon.dev/",
+    tags: ["iconos", "devtools", "svg", "tech"],
+    category: "diseño",
+  },
+  {
+    id: "270",
+    name: "Feather Icons",
+    description:
+      "Iconos simples y elegantes de interfaz, open source y personalizables.",
+    url: "https://feathericons.com/",
+    tags: ["iconos", "svg", "open-source", "ui"],
+    category: "diseño",
+  },
+  {
+    id: "271",
+    name: "Premade Avatars (alohe)",
+    description:
+      "Avatares de personas generados con máscaras y colores en el navegador.",
+    url: "https://alohe.github.io/avatars/",
+    tags: ["avatares", "svg", "generador", "ui"],
+    category: "diseño",
+  },
+  {
+    id: "272",
+    name: "Spring Boot",
+    description:
+      "Framework de Java backend para construir microservicios y apps empresariales.",
+    url: "https://spring.io/",
+    tags: ["java", "backend", "framework", "microservicios"],
+    category: "librerias",
+  },
+  {
+    id: "273",
+    name: "Ruby on Rails",
+    description:
+      "Framework web full-stack de Ruby enfocado en convención sobre configuración.",
+    url: "https://rubyonrails.org/",
+    tags: ["ruby", "framework", "fullstack", "backend"],
+    category: "librerias",
+  },
+  {
+    id: "274",
+    name: "Reflex",
+    description:
+      "Crea apps web full-stack en Python puro, sin frontend separado.",
+    url: "https://reflex.dev/",
+    tags: ["python", "fullstack", "framework", "web"],
+    category: "librerias",
+  },
+  {
+    id: "275",
+    name: "NestJS",
+    description:
+      "Framework Node backend progresivo, tipado y con arquitectura modular.",
+    url: "https://nestjs.com/",
+    tags: ["node", "typescript", "backend", "framework"],
+    category: "librerias",
+  },
+  {
+    id: "276",
+    name: "Laravel",
+    description:
+      "Framework web expresivo y elegante para PHP, con ecosistema completo.",
+    url: "https://laravel.com/",
+    tags: ["php", "framework", "backend", "web"],
+    category: "librerias",
+  },
+  {
+    id: "277",
+    name: "Express.js",
+    description:
+      "Framework minimalista y flexible para building Node.js APIs.",
+    url: "https://expressjs.com/",
+    tags: ["node", "backend", "framework", "api"],
+    category: "librerias",
+  },
+  {
+    id: "278",
+    name: "Django",
+    description:
+      "Framework Python full-stack con baterías incluidas y admin automático.",
+    url: "https://www.djangoproject.com/",
+    tags: ["python", "framework", "fullstack", "backend"],
+    category: "librerias",
+  },
+  {
+    id: "279",
+    name: "Typeform",
+    description:
+      "Plataforma de formularios y encuestas con experiencia conversacional.",
+    url: "https://www.typeform.com/",
+    tags: ["formularios", "encuestas", "questionarios", "ux"],
+    category: "herramientas",
+  },
+  {
+    id: "280",
+    name: "React Hook Form",
+    description:
+      "Formularios en React con rendimiento, validación y menos re-renders.",
+    url: "https://react-hook-form.com/",
+    tags: ["react", "formularios", "validacion", "hooks"],
+    category: "librerias",
+  },
+  {
+    id: "281",
+    name: "Formik",
+    description:
+      "Librería de manejo de formularios para React y React Native.",
+    url: "https://formik.org/",
+    tags: ["react", "formularios", "validacion", "libreria"],
+    category: "librerias",
+  },
+  {
+    id: "282",
+    name: "UseSend",
+    description:
+      "API de email transactional simple para desarrolladores, con dashboard intuitivo.",
+    url: "https://usesend.com/",
+    tags: ["email", "api", "transaccional", "developers"],
     category: "apis",
   },
 ];

@@ -1,5 +1,7 @@
 import {
   BookOpen,
+  Bot,
+  Briefcase,
   Circle,
   ClipboardPenLine,
   FileText,
@@ -11,7 +13,9 @@ import {
   Palette,
   Puzzle,
   Rocket,
+  Server,
   Sparkles,
+  TestTubes,
   Wrench,
   type LucideIcon,
 } from "lucide-react";
@@ -23,6 +27,7 @@ import {
  */
 export const categoryIcons: Record<string, LucideIcon> = {
   todas: Layers,
+  ia: Bot,
   cursos: GraduationCap,
   challenges: Rocket,
   herramientas: Wrench,
@@ -35,6 +40,9 @@ export const categoryIcons: Record<string, LucideIcon> = {
   repositorios: GitBranch,
   componentes: Puzzle,
   didactico: ClipboardPenLine,
+  hosting: Server,
+  productividad: Briefcase,
+  testing: TestTubes,
 };
 
 export function getCategoryIcon(key: string): LucideIcon {
