@@ -274,12 +274,14 @@ export async function listResourcesByIds(ids: string[]) {
   return docs.map(toResource);
 }
 
-/** Every distinct tag across approved resources, with how many resources use it. */
-export async function getAllTagsWithCounts() {
+/** Every distinct tag across approved resources (optionally within a category), with how many resources use it. */
+export async function getAllTagsWithCounts(category?: CategoryKey) {
   const col = await resourcesCollection();
+  const match: Record<string, unknown> = { status: "approved" };
+  if (category && category !== "todas") match.category = category;
   const agg = await col
     .aggregate<{ _id: string; count: number }>([
-      { $match: { status: "approved" } },
+      { $match: match },
       { $unwind: "$tags" },
       { $group: { _id: "$tags", count: { $sum: 1 } } },
       { $sort: { count: -1, _id: 1 } },

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -109,6 +108,7 @@ export function SidebarCategories({
         </SidebarGroup>
 
         <SidebarGroup>
+          <SidebarGroupLabel>Acciones</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
@@ -119,14 +119,6 @@ export function SidebarCategories({
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Acciones</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Favoritos">
                   <Link href="/favoritos" aria-label="Ver mis favoritos">
@@ -158,14 +150,6 @@ export function SidebarCategories({
         </SidebarGroup>
         </SidebarClickToClose>
       </SidebarContent>
-      <SidebarFooter className="pb-4">
-        <p className="px-2 text-xs text-muted-foreground">
-          ¿Conocés un buen recurso?{" "}
-          <Link href="/enviar" className="underline underline-offset-2 hover:text-foreground">
-            Compartilo
-          </Link>
-        </p>
-      </SidebarFooter>
     </>
   );
 }

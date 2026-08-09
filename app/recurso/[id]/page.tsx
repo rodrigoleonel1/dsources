@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Globe, Hash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { AppShell } from "@/components/app-shell";
 import { FavoriteButton } from "@/components/favorite-button";
 import { CopyLinkButton } from "@/components/copy-link-button";
@@ -114,13 +114,13 @@ export default async function ResourceDetailPage({
 
       <Card className="relative max-w-2xl mx-auto">
         <FavoriteButton resourceId={resource.id} resourceName={resource.name} />
-        <CardHeader>
-          <Badge variant="secondary" className="w-fit capitalize">
-            {categoryLabel}
-          </Badge>
-          <CardTitle className="text-2xl">{resource.name}</CardTitle>
-          <CardDescription className="text-base">{resource.description}</CardDescription>
-        </CardHeader>
+<CardHeader>
+            <Badge variant="secondary" className="w-fit capitalize">
+              {categoryLabel}
+            </Badge>
+            <h1 className="text-2xl font-semibold leading-none">{resource.name}</h1>
+            <CardDescription className="text-base">{resource.description}</CardDescription>
+          </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center gap-2">
             <a

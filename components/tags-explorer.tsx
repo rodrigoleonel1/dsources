@@ -6,19 +6,20 @@ import { Hash, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { CategoryItem } from "@/data/types";
+import type { CategoryItem, CategoryKey } from "@/data/types";
 
 export function TagsExplorer({
   tags,
   categories,
   max,
+  activeCategory,
 }: {
   tags: { tag: string; count: number }[];
   categories: CategoryItem[];
   max: number;
+  activeCategory: CategoryKey;
 }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("todas");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -28,7 +29,7 @@ export function TagsExplorer({
 
   function hrefFor(tag: string) {
     const params = new URLSearchParams();
-    if (category && category !== "todas") params.set("cat", category);
+    if (activeCategory && activeCategory !== "todas") params.set("cat", activeCategory);
     params.set("q", tag);
     return `/?${params.toString()}`;
   }
@@ -38,19 +39,11 @@ export function TagsExplorer({
       <div className="mb-6 flex flex-wrap items-center gap-2">
         <Button
           asChild
-          variant={category === "todas" ? "secondary" : "outline"}
+          variant={activeCategory === "todas" ? "secondary" : "outline"}
           size="sm"
           className="h-7 px-3 text-xs"
         >
-          <Link
-            href="/tags"
-            onClick={(e) => {
-              e.preventDefault();
-              setCategory("todas");
-            }}
-          >
-            Todas
-          </Link>
+          <Link href="/tags">Todas</Link>
         </Button>
         {categories
           .filter((c) => c.key !== "todas")
@@ -58,19 +51,11 @@ export function TagsExplorer({
             <Button
               key={c.key}
               asChild
-              variant={category === c.key ? "secondary" : "outline"}
+              variant={activeCategory === c.key ? "secondary" : "outline"}
               size="sm"
               className="h-7 px-3 text-xs"
             >
-              <Link
-                href={`/tags?cat=${encodeURIComponent(c.key)}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setCategory(c.key);
-                }}
-              >
-                {c.label}
-              </Link>
+              <Link href={`/tags?cat=${encodeURIComponent(c.key)}`}>{c.label}</Link>
             </Button>
           ))}
       </div>

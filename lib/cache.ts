@@ -4,15 +4,19 @@ import {
   countResourcesByCategory,
   getAllTagsWithCounts,
 } from "@/lib/db/resources";
+import type { CategoryKey } from "@/data/types";
 
 /** Revalidated whenever resources are created/edited/reviewed/deleted. */
 export const RESOURCES_TAG = "resources";
 
-const getCachedTagsWithCounts = unstable_cache(
-  async () => getAllTagsWithCounts(),
-  ["tags-with-counts"],
-  { tags: [RESOURCES_TAG], revalidate: 300 }
-);
+function getCachedTagsWithCounts(category?: CategoryKey) {
+  const key = category && category !== "todas" ? category : "todas";
+  return unstable_cache(
+    async () => getAllTagsWithCounts(category),
+    [`tags-with-counts`, key],
+    { tags: [RESOURCES_TAG], revalidate: 300 }
+  )();
+}
 
 const getCachedCategoryCounts = unstable_cache(
   async () => countResourcesByCategory(),
